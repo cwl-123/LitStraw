@@ -167,7 +167,7 @@ public class Extract {
                 }
             } else {
                 // 1.3 没有CaptionTextTypeSet，用加粗判断
-                if (text.getTextType().getFontType() != null && text.getTextType().isBold()) {
+                if (text.getTextType().getFontName() != null && text.getTextType().isBold()) {
                     return TextLabelTypeEnum.CAPTION;
                 }
             }

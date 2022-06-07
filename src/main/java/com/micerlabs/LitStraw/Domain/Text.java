@@ -12,6 +12,12 @@ public class Text {
     private TextType textType;
     // 文本内容
     private String text;
+    // Adobe 分配路径
+    private String path;
+    // 文本边界
+    private float[] bounds;
+    // 文本所在页面
+    private int page;
 
     public Text(String text, TextType textType) {
         this.text = text;
