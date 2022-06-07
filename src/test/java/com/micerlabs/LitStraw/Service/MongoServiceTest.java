@@ -69,9 +69,9 @@ public class MongoServiceTest {
 
     @Test
     public void process() {
-        List<Literature> allLiterature = literatureService.multiPaperWithoutRecord("materialLib/3");
+        List<Literature> allLiterature = literatureService.multiPaperWithoutRecord("materialLib/4");
         for (Literature literature : allLiterature) {
-            PostProcess.literature2Txt(literature,"materialLib/3/txt",  literature.getTitle() + ".txt");
+            PostProcess.literature2Txt(literature,"materialLib/4/txt",  literature.getTitle() + ".txt");
         }
     }
 
