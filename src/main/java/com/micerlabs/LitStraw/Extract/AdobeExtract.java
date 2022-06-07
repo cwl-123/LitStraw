@@ -19,6 +19,11 @@ public class AdobeExtract {
     @Value("${api-credentials}")
     private static String apiCredentials;
 
+
+    public static void main(String[] args) {
+        pdfExtract2Zip("src/main/resources/3.pdf","output/3.zip");
+    }
+
     /**
      * @param pdfPath    eg:"src/main/resources/3.pdf"
      * @param outputPath eg:"output/3.zip"

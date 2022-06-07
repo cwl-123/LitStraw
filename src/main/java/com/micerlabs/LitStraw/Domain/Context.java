@@ -17,15 +17,15 @@ public class Context {
      */
     // 待配置变量
     private String pdfLib = "materialLib/pdf/09/";
-    private String wordLib = "materialLib/doc/09/pdf2doc/";
+    private String jsonLib = "materialLib/json/09/pdf2doc/";
     private String txtLib = "materialLib/txt/09/pdf2doc/";
 
+
     private String pdfSuffix = ".pdf";
-    //    private String wordSuffix = "-converted.docx";
-    private String wordSuffix = ".doc";
+    private String jsonSuffix = ".json";
 
     // 中间变量
-    private String importDocxFile = "";
+    private String importJsonFile = "";
     private String importPdfFile = "";
     private String importFileName = "";
 
@@ -35,7 +35,7 @@ public class Context {
      */
     private TextType referenceTextType;
     private TextType mainBodyTextType;
-    private Set<TextType> SecondaryBodyTextTypeSet = new HashSet<>();
+    private Set<TextType> secondaryBodyTextTypeSet = new HashSet<>();
 
     // 没书签时需要收集与Reference匹配的Caption的字体类型
     private Set<TextType> captionTextTypeSet = new HashSet<>();

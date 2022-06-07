@@ -85,7 +85,7 @@ public class LiteratureService {
         task.updateProgress(20, "Pdf2doc started.");
         redisService.saveTask(task);
         try {
-            WordUtils.pdf2docForLargeFile(task.getStorePath() + "/pdf/" + pdfFileName, context.getImportDocxFile());
+//            WordUtils.pdf2docForLargeFile(task.getStorePath() + "/pdf/" + pdfFileName, context.getImportDocxFile());
         } catch (Exception e) {
             task.setErrorMsg("pdf2doc failed!");
             redisService.saveTask(task);
@@ -97,7 +97,8 @@ public class LiteratureService {
         List<StatisForPara> statisForParas = Init.preAnalyseForDoc(context);
 
         // 1.根据TextType聚合，doc读成List<Text>
-        List<Text> textList = Extract.extractTextOfSpire(statisForParas, context);
+        String jsonPath = "data/2/structuredData.json";
+        List<Text> textList = Extract.extractTextOfAdobe(jsonPath);
         // 中途再统计
         Init.statis(textList, context);
 
@@ -156,7 +157,8 @@ public class LiteratureService {
         List<StatisForPara> statisForParas = Init.preAnalyseForDoc(context);
 
         // 1.根据TextType聚合，doc读成List<Text>
-        List<Text> textList = Extract.extractTextOfSpire(statisForParas, context);
+        String jsonPath = "data/2/structuredData.json";
+        List<Text> textList = Extract.extractTextOfAdobe(jsonPath);
         // 中途再统计
         Init.statis(textList, context);
 

@@ -11,7 +11,7 @@ public class Text {
     // 文本样式
     private TextType textType;
     // 文本内容
-    private String text;
+    private String content;
     // Adobe 分配路径
     private String path;
     // 文本边界
@@ -19,20 +19,20 @@ public class Text {
     // 文本所在页面
     private int page;
 
-    public Text(String text, TextType textType) {
-        this.text = text;
+    public Text(String content, TextType textType) {
+        this.content = content;
         this.textType = textType;
     }
 
-    public Text(String text) {
-        this.text = text;
+    public Text(String content) {
+        this.content = content;
     }
 
     @Override
     public String toString() {
         return "Text{" +
                 "textType=" + textType +
-                ", text='" + text + '\'' +
+                ", text='" + content + '\'' +
                 '}';
     }
 }

@@ -69,7 +69,6 @@ public class JsonAnalysis {
         textType.setItalic(italic);
         text.setTextType(textType);
         return text;
-
     }
 
 

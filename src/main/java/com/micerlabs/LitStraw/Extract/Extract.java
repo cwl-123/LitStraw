@@ -12,28 +12,61 @@ import com.spire.doc.documents.Paragraph;
 import com.spire.doc.fields.TextRange;
 import com.spire.doc.formatting.CharacterFormat;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Extract {
 
     /************************1. 提取TextList **********************************************************/
+//    /**
+//     * statisForParas 转 List<Text>
+//     *
+//     * @return
+//     */
+//    public static List<Text> extractTextOfSpire(List<StatisForPara> statisForParas, Context context) {
+//        if (CollectionUtils.isEmpty(statisForParas)) {
+//            return Collections.emptyList();
+//        }
+//        List<Text> literature = new ArrayList<>();
+//        for (StatisForPara statisForPara : statisForParas) {
+//            List<Text> textList = paragraphToTextListOfSpire(statisForPara);
+//            literature.addAll(textList);
+//        }
+//        return convertToFixAccuracy(literature);
+//    }
+
     /**
-     * statisForParas 转 List<Text>
      *
+     * @param jsonPath eg: "data/2/structuredData.json"
      * @return
+     * @throws IOException
      */
-    public static List<Text> extractTextOfSpire(List<StatisForPara> statisForParas, Context context) {
-        if (CollectionUtils.isEmpty(statisForParas)) {
-            return Collections.emptyList();
+    public static List<Text> extractTextOfAdobe(String jsonPath) {
+        File file = new File(jsonPath);
+        String content = null;
+        try {
+            content = FileUtils.readFileToString(file, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        List<Text> literature = new ArrayList<>();
-        for (StatisForPara statisForPara : statisForParas) {
-            List<Text> textList = paragraphToTextListOfSpire(statisForPara);
-            literature.addAll(textList);
+        JSONObject jsObj = new JSONObject(content);
+        JSONArray elements = jsObj.getJSONArray("elements");
+        List<Text> textList = new ArrayList<>();
+        for (Object element : elements) {
+            JSONObject e = (JSONObject) element;
+            double textSize = e.optDouble("TextSize", 0.0D);
+            if (textSize != 0.0D) {
+                System.out.println(e.getString("Path") + textSize);
+                textList.add(JsonAnalysis.convert2Text(e));
+            }
         }
-        return convertToFixAccuracy(literature);
+        return textList;
     }
 
 
@@ -43,42 +76,42 @@ public class Extract {
      * @param statisForPara
      * @return
      */
-    private static List<Text> paragraphToTextListOfSpire(StatisForPara statisForPara) {
-        if (statisForPara == null || statisForPara.getPara() == null) {
-            return Collections.emptyList();
-        }
-        // 如果最频繁textType占比>0.95，那直接用getParaText()拼上最频繁TextType,来避免特殊空格" "
-        // Note: Fixing-Trick Rule 字体归化逻辑 这样应该可以大大减少错误&&减少执行次数 后期可以看下0.95阈值是否合理
-        if (statisForPara.getMostFrequentlyTextType().getValue() > 0.95) {
-            Text text = new Text(statisForPara.getParaText(), statisForPara.getMostFrequentlyTextType().getKey());
-            return Lists.newArrayList(text);
-        }
-        Paragraph para = statisForPara.getPara();
-        List<Text> textList = new ArrayList<>();
-        TextType lastTextType = new TextType();
-        for (int i = 0; i < para.getChildObjects().getCount(); i++) {
-            DocumentObject documentObject = para.getChildObjects().get(i);
-            if (documentObject instanceof TextRange) {
-                TextRange run = (TextRange) documentObject;
-                if (StringUtils.isNotBlank(run.getText())) {
-                    CharacterFormat characterFormat = run.getCharacterFormat();
-                    TextType currentTextType = new TextType(characterFormat.getFontSize(), characterFormat.getFontName(), characterFormat.getTextColor().getColorSpace().getType(), characterFormat.getBold(), characterFormat.getItalic());
-                    if (lastTextType.equals(currentTextType)) {
-                        Text text = textList.get(textList.size() - 1);
-                        text.setText(text.getText() + run.getText());
-                    } else {
-                        lastTextType = currentTextType;
-                        textList.add(new Text(run.getText(), currentTextType));
-                    }
-                } else if (textList.size() >= 1) {
-                    // 如果是空格，则补上~
-                    Text text = textList.get(textList.size() - 1);
-                    text.setText(text.getText() + " ");
-                }
-            }
-        }
-        return textList;
-    }
+//    private static List<Text> paragraphToTextListOfSpire(StatisForPara statisForPara) {
+//        if (statisForPara == null || statisForPara.getPara() == null) {
+//            return Collections.emptyList();
+//        }
+//        // 如果最频繁textType占比>0.95，那直接用getParaText()拼上最频繁TextType,来避免特殊空格" "
+//        // Note: Fixing-Trick Rule 字体归化逻辑 这样应该可以大大减少错误&&减少执行次数 后期可以看下0.95阈值是否合理
+//        if (statisForPara.getMostFrequentlyTextType().getValue() > 0.95) {
+//            Text text = new Text(statisForPara.getParaText(), statisForPara.getMostFrequentlyTextType().getKey());
+//            return Lists.newArrayList(text);
+//        }
+//        Paragraph para = statisForPara.getPara();
+//        List<Text> textList = new ArrayList<>();
+//        TextType lastTextType = new TextType();
+//        for (int i = 0; i < para.getChildObjects().getCount(); i++) {
+//            DocumentObject documentObject = para.getChildObjects().get(i);
+//            if (documentObject instanceof TextRange) {
+//                TextRange run = (TextRange) documentObject;
+//                if (StringUtils.isNotBlank(run.getText())) {
+//                    CharacterFormat characterFormat = run.getCharacterFormat();
+//                    TextType currentTextType = new TextType(characterFormat.getFontSize(), characterFormat.getFontName(), characterFormat.getTextColor().getColorSpace().getType(), characterFormat.getBold(), characterFormat.getItalic());
+//                    if (lastTextType.equals(currentTextType)) {
+//                        Text text = textList.get(textList.size() - 1);
+//                        text.setContent(text.getContent() + run.getText());
+//                    } else {
+//                        lastTextType = currentTextType;
+//                        textList.add(new Text(run.getText(), currentTextType));
+//                    }
+//                } else if (textList.size() >= 1) {
+//                    // 如果是空格，则补上~
+//                    Text text = textList.get(textList.size() - 1);
+//                    text.setContent(text.getContent() + " ");
+//                }
+//            }
+//        }
+//        return textList;
+//    }
 
     /**
      * 为了修复pdf转word的精确度问题，写的一个转换TextType函数
@@ -93,8 +126,8 @@ public class Extract {
         // 打断的单词，OCR识别错误的部分转换字体类型
         for (int i = 1; i < literature.size() - 1; i++) {
             Text text = literature.get(i);
-            if (text.getText().length() <= 5 && literature.get(i - 1).getTextType().equals(literature.get(i + 1).getTextType())) {
-                literature.get(i - 1).setText(literature.get(i - 1).getText() + text.getText() + literature.get(i + 1).getText());
+            if (text.getContent().length() <= 5 && literature.get(i - 1).getTextType().equals(literature.get(i + 1).getTextType())) {
+                literature.get(i - 1).setContent(literature.get(i - 1).getContent() + text.getContent() + literature.get(i + 1).getContent());
                 literature.remove(i);
                 literature.remove(i);
                 i = i - 1;
@@ -102,7 +135,7 @@ public class Extract {
         }
         // 出去前转化下，把fi，fl等特殊字符处理好
         for (Text text : literature) {
-            text.setText(StatisticsUtils.convertSpecSpaceOfAscii(text.getText()));
+            text.setContent(StatisticsUtils.convertSpecSpaceOfAscii(text.getContent()));
         }
         return literature;
     }
@@ -134,7 +167,7 @@ public class Extract {
 //                lastLabelType = currentLabelType;
 //                textLabelList.add(new TextLabel(text.getText(), text.getTextType(), currentLabelType));
 //            }
-            textLabelList.add(new TextLabel(text.getText(), text.getTextType(), currentLabelType));
+            textLabelList.add(new TextLabel(text.getContent(), text.getTextType(), currentLabelType));
         }
         convertLabelAfterMarkTag(textLabelList, context);
         return textLabelList;
@@ -152,7 +185,7 @@ public class Extract {
         if (CollectionUtils.isNotEmpty(context.getFormatBookMarkSet())) {
             // 1.1 有书签根据书签来判断
             // ToDO:这里有空考虑下性能：Set直接Contains当然性能最好，但是格式不对，还是得遍历Set来MatchPattern
-            if (context.getFormatBookMarkSet().contains(RegexUtils.formatString(text.getText()))) {
+            if (context.getFormatBookMarkSet().contains(RegexUtils.formatString(text.getContent()))) {
                 return TextLabelTypeEnum.CAPTION;
             }
         } else {
@@ -161,7 +194,7 @@ public class Extract {
                 if (context.getCaptionTextTypeSet().contains(text.getTextType())) {
                     // ToDO：因为存在识别问题，容易有些许OCR识别错误的字体被当成Caption，如：de facto 所以需要对Caption长度做限制
                     // 没书签就不允许出现这种错别字..
-                    if (text.getText().length() <= 100) {
+                    if (text.getContent().length() <= 100) {
                         return TextLabelTypeEnum.CAPTION;
                     }
                 }
@@ -174,14 +207,14 @@ public class Extract {
         }
         // 1.4 如果是CaptionKeyWordSet里的关键词，也直接被打上Caption标签 eg Abstract
         // 这里只要是partOf && IgnoreCase
-        if (MatchUtils.matchKeyWordForCaption(context.getCaptionKeyWordsSet(), text.getText())) {
+        if (MatchUtils.matchKeyWordForCaption(context.getCaptionKeyWordsSet(), text.getContent())) {
             return TextLabelTypeEnum.CAPTION;
         }
 
         // 2. 其次，判断是否是表格标题,vice-caption
         // (?i)表示不区分大小写
         String pattern = "(?i)Fig.*|(?i)Tab.*";
-        if (text.getText().length() < 10 && text.getText().matches(pattern)) {
+        if (text.getContent().length() < 10 && text.getContent().matches(pattern)) {
             return TextLabelTypeEnum.VICE_CAPTION;
         }
 

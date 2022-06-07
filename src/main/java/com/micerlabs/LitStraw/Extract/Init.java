@@ -67,8 +67,8 @@ public class Init {
     public static void statis(List<Text> textList, Context context) {
         // 得到标题
         for (Text text : textList) {
-            if (context.getTitleTextType() != null && text.getTextType().equals(context.getTitleTextType()) && text.getText().length() > 30) {
-                context.setTitle(text.getText());
+            if (context.getTitleTextType() != null && text.getTextType().equals(context.getTitleTextType()) && text.getContent().length() > 30) {
+                context.setTitle(text.getContent());
                 break;
             }
         }
@@ -76,21 +76,21 @@ public class Init {
         // 得到次一级正文字体
         for (Text text : textList) {
             // ToDo：暂时设置成500，最好和文章长度百分比匹配
-            if (text.getText().length() > 500 && !context.getMainBodyTextType().equals(text.getTextType())
+            if (text.getContent().length() > 500 && !context.getMainBodyTextType().equals(text.getTextType())
                     && !context.getReferenceTextType().equals(text.getTextType())) {
                 context.getSecondaryBodyTextTypeSet().add(text.getTextType());
             }
         }
 
         for (int i = 0; i < textList.size(); i++) {
-            if (MatchUtils.matchKeyWordForPattern(textList.get(i).getText(), "Introduction")) {
+            if (MatchUtils.matchKeyWordForPattern(textList.get(i).getContent(), "Introduction")) {
                 context.setIntroductionIndex(i);
             }
-            if (MatchUtils.matchKeyWordForPattern(textList.get(i).getText(), "abstract")) {
+            if (MatchUtils.matchKeyWordForPattern(textList.get(i).getContent(), "abstract")) {
                 context.setAbstractIndex(i);
             }
             // 得到Reference Caption TextType,当没书签时根据CaptionTextTypeSet来判断是否为Caption
-            if (MatchUtils.matchKeyWordForPattern(textList.get(i).getText(), "Reference")) {
+            if (MatchUtils.matchKeyWordForPattern(textList.get(i).getContent(), "Reference")) {
                 context.getCaptionTextTypeSet().add(textList.get(i).getTextType());
             }
         }

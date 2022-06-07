@@ -47,44 +47,44 @@ public class StatisticsUtils {
     public static StatisForPara statisticsForSinglePara(Paragraph paragraph) {
         StatisForPara statis = new StatisForPara();
         statis.setPara(paragraph);
-        if (paragraph != null & paragraph.getChildObjects().getCount() != 0) {
-            DocumentObjectCollection childObjects = paragraph.getChildObjects();
-            statis.setRunsNum(childObjects.getCount());
-            int runsNumWithoutEmpty = 0;
-            for (int i = 0; i < childObjects.getCount(); i++) {
-                DocumentObject documentObject = childObjects.get(i);
-                if (documentObject instanceof TextRange) {
-                    TextRange run = (TextRange) documentObject;
-                    if (StringUtils.isNotBlank(run.getText())) {
-                        runsNumWithoutEmpty++;
-                        CharacterFormat characterFormat = run.getCharacterFormat();
-                        TextType textType = new TextType(characterFormat.getFontSize(), characterFormat.getFontName(), characterFormat.getTextColor().getColorSpace().getType(), characterFormat.getBold(), characterFormat.getItalic());
-                        if (statis.getTextTypeMap().containsKey(textType)) {
-                            statis.getTextTypeMap().put(textType, statis.getTextTypeMap().get(textType) + run.getText().length());
-                        } else {
-                            statis.getTextTypeMap().put(textType, run.getText().length());
-                        }
-                    }
-                }
-            }
-            statis.setRunsNumWithoutEmpty(runsNumWithoutEmpty);
-            statis.setParaText(paragraph.getText());
-            statis.setParaTextNum(paragraph.getText().length());
-
-            if (MapUtils.isNotEmpty(statis.getTextTypeMap())) {
-                int maxNum = 0, totalNum = 0;
-                TextType textType = new TextType();
-                for (Map.Entry<TextType, Integer> entry : statis.getTextTypeMap().entrySet()) {
-                    totalNum = totalNum + entry.getValue();
-                    if (entry.getValue() > maxNum) {
-                        textType = entry.getKey();
-                        maxNum = entry.getValue();
-                    }
-                }
-                statis.setMostFrequentlyTextTypeNum(new Pair<>(textType, maxNum));
-                statis.setMostFrequentlyTextType(new Pair<>(textType, (double) maxNum / totalNum));
-            }
-        }
+//        if (paragraph != null & paragraph.getChildObjects().getCount() != 0) {
+//            DocumentObjectCollection childObjects = paragraph.getChildObjects();
+//            statis.setRunsNum(childObjects.getCount());
+//            int runsNumWithoutEmpty = 0;
+//            for (int i = 0; i < childObjects.getCount(); i++) {
+//                DocumentObject documentObject = childObjects.get(i);
+//                if (documentObject instanceof TextRange) {
+//                    TextRange run = (TextRange) documentObject;
+//                    if (StringUtils.isNotBlank(run.getText())) {
+//                        runsNumWithoutEmpty++;
+//                        CharacterFormat characterFormat = run.getCharacterFormat();
+//                        TextType textType = new TextType(characterFormat.getFontSize(), characterFormat.getFontName(), characterFormat.getTextColor().getColorSpace().getType(), characterFormat.getBold(), characterFormat.getItalic());
+//                        if (statis.getTextTypeMap().containsKey(textType)) {
+//                            statis.getTextTypeMap().put(textType, statis.getTextTypeMap().get(textType) + run.getText().length());
+//                        } else {
+//                            statis.getTextTypeMap().put(textType, run.getText().length());
+//                        }
+//                    }
+//                }
+//            }
+//            statis.setRunsNumWithoutEmpty(runsNumWithoutEmpty);
+//            statis.setParaText(paragraph.getText());
+//            statis.setParaTextNum(paragraph.getText().length());
+//
+//            if (MapUtils.isNotEmpty(statis.getTextTypeMap())) {
+//                int maxNum = 0, totalNum = 0;
+//                TextType textType = new TextType();
+//                for (Map.Entry<TextType, Integer> entry : statis.getTextTypeMap().entrySet()) {
+//                    totalNum = totalNum + entry.getValue();
+//                    if (entry.getValue() > maxNum) {
+//                        textType = entry.getKey();
+//                        maxNum = entry.getValue();
+//                    }
+//                }
+//                statis.setMostFrequentlyTextTypeNum(new Pair<>(textType, maxNum));
+//                statis.setMostFrequentlyTextType(new Pair<>(textType, (double) maxNum / totalNum));
+//            }
+//        }
         return statis;
     }
 
