@@ -1,22 +1,19 @@
 package com.micerlabs.LitStraw.Service;
 
 import com.micerlabs.LitStraw.Domain.*;
-import com.micerlabs.LitStraw.Domain.StatisForPara;
+import com.micerlabs.LitStraw.Extract.AdobeExtract;
 import com.micerlabs.LitStraw.Extract.Extract;
 import com.micerlabs.LitStraw.Extract.Init;
 import com.micerlabs.LitStraw.Extract.PostProcess;
 import com.micerlabs.LitStraw.Utils.FileUtil;
-import com.micerlabs.LitStraw.Utils.WordUtils;
-import org.springframework.beans.factory.annotation.Value;
+import com.micerlabs.LitStraw.Utils.ZipUtil;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class LiteratureService {
@@ -25,46 +22,6 @@ public class LiteratureService {
 
     @Resource
     private RedisService redisService;
-
-    // trick逻辑
-    @Value("${config.wordFileSuffix}")
-    private String wordFileSuffix;
-
-    @Value("${config.storePath}")
-    private String storePath;
-
-//    /**
-//     * 批处理一批论文
-//     */
-//    public RunTimeRecord batchPaper(String path) {
-//        String pdfLib = path + "/";
-//        String wordLib = pdfLib.replaceAll("pdf", "doc") + wordFileSuffix;
-//        String txtLib = pdfLib.replaceAll("pdf", "txt");
-//        return batchPaper(pdfLib, wordLib, txtLib);
-//    }
-//
-//    public RunTimeRecord batchPaper(String pdfLib, String wordLib, String txtLib) {
-//        RunTimeRecord runTimeRecord = new RunTimeRecord();
-//        long start = System.currentTimeMillis();
-//
-//        // 先处理 word-AllTo-doc
-//        String wordPath = wordLib.substring(0, wordLib.length() - 1);
-////        System.out.println(wordPath);
-//        FileUtils.modifySuffixName(wordPath, "-converted.docx", ".doc");
-//        FileUtils.modifySuffixName(wordPath, ".docx", ".doc");
-//
-//        String pdfPath = pdfLib.substring(0, pdfLib.length() - 1);
-//        List<String> filenames = FileUtils.getFile(new File(pdfPath).getAbsolutePath());
-////        List<String> filenames = FileUtils.getFile(pdfPath);
-//        for (String pdfFilename : filenames) {
-//            singlePaper(pdfLib, wordLib, pdfFilename, txtLib);
-//        }
-//
-//        runTimeRecord.setFileNum(filenames.size());
-//        runTimeRecord.setCostTime(System.currentTimeMillis() - start);
-//        return runTimeRecord;
-//    }
-
 
     /**
      * 一次处理一篇论文
@@ -81,52 +38,44 @@ public class LiteratureService {
         redisService.saveTask(task);
         Context context = Init.initContext(task.getStorePath(), pdfFileName);
 
-        // pdf2doc
-        task.updateProgress(20, "Pdf2doc started.");
+        // pdf2json
+        task.updateProgress(20, "Pdf2json started.");
         redisService.saveTask(task);
         try {
-//            WordUtils.pdf2docForLargeFile(task.getStorePath() + "/pdf/" + pdfFileName, context.getImportDocxFile());
+            AdobeExtract.pdfExtract2Zip(context.getImportPdfFile(),
+                    "output/" + context.getImportFileName() + ".zip");
+            ZipUtil.unzip("output/" + context.getImportFileName() + ".zip", context.getJsonLib());
+            FileUtil.deleteDir("output");
         } catch (Exception e) {
-            task.setErrorMsg("pdf2doc failed!");
+            task.setErrorMsg("Pdf2json failed!");
             redisService.saveTask(task);
         }
 
         task.updateProgress(50, "Text labeled started.");
         redisService.saveTask(task);
-//        // 初步分析doc
-//        List<StatisForPara> statisForParas = Init.preAnalyseForDoc(context);
 
-        // 1.根据TextType聚合，doc读成List<Text>
-        String jsonPath = "data/2/structuredData.json";
-        List<Text> textList = Extract.extractTextOfAdobe(jsonPath);
-        // 中途再统计
+        // json转化为List<Text>
+//        String jsonPath = "data/2/structuredData.json";
+        List<Text> textList = Extract.extractTextOfAdobe(context.getImportJsonFile());
+
+        // 统计字体
         Init.statis(textList, context);
 
-        // 2. Text转LabeledText
-        List<TextLabel> textLabelList = Extract.text2label(textList, context);
-
-        // 3. LabeledText转TextPattern
-        List<TextPattern> textPatternList = Extract.label2pattern(textLabelList, context);
-
-        // 以TextPatternType聚类，看看各Pattern都包含怎样的信息
-        Map<TextPatternTypeEnum, List<TextPattern>> patternTypeEnumListMap = PostProcess.separatePattern(textPatternList);
-
-        // 4. 主要过滤掉Other类别的Pattern
+        // 两次打标
+        List<TextLabel> textLabels = Extract.text2label(textList, context);
+        List<TextPattern> textPatternList = Extract.label2pattern(textLabels, context);
         List<TextPattern> filteredPatterns = PostProcess.textPatternsFilter(textPatternList, context);
 
-        // 5. PatternList转Literature
-        Literature literature = PostProcess.patternList2Literature(context, filteredPatterns);
-
-        // TODO:trick逻辑 目前title判断做的不够好
-        literature.setTitle(context.getImportFileName());
-
-
-        // 6. 处理成txt样式
+        // PatternList转Literature
         task.updateProgress(80, "Convert to txt started.");
         redisService.saveTask(task);
-        PostProcess.literature2Txt(literature, context.getTxtLib(), context.getImportFileName() + ".txt");
+        Literature literature = PostProcess.patternList2Literature(context, filteredPatterns);
+        PostProcess.literature2Txt(literature, context.getTxtLib(), context.getTitle()+".txt");
+
+        // 存储Literature对象
         if (!literature.getTitle().isEmpty()) {
             try {
+                literature.setId(task.getTaskId());
                 mongoService.saveLiterature(literature);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -134,6 +83,8 @@ public class LiteratureService {
         } else {
             task.setErrorMsg("Paper Extract without title!");
         }
+
+        // 任务结束，统计信息
         long end = System.currentTimeMillis();
         task.setCostTime(end - start);
         task.setAvgTime((end - start) / task.getFileNum());
@@ -150,19 +101,25 @@ public class LiteratureService {
      * @return
      */
     public static Literature singlePaperWithoutRecord() {
+        AdobeExtract.pdfExtract2Zip("src/main/resources/3.pdf", "output/3.zip");
+        try {
+            ZipUtil.unzip("output/3.zip", "output");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        Context context = Init.initContext(storeLib, pdfFileName);
         Context context = new Context();
         // 1.根据TextType聚合，doc读成List<Text>
-        String jsonPath = "output/structuredData 2.json";
+        String jsonPath = "output/structuredData.json";
         List<Text> textList = Extract.extractTextOfAdobe(jsonPath);
         // 统计字体
-        Init.statis(textList,context);
+        Init.statis(textList, context);
         List<TextLabel> textLabels = Extract.text2label(textList, context);
         List<TextPattern> textPatternList = Extract.label2pattern(textLabels, context);
         List<TextPattern> filteredPatterns = PostProcess.textPatternsFilter(textPatternList, context);
         // 5. PatternList转Literature
         Literature literature = PostProcess.patternList2Literature(context, filteredPatterns);
-        PostProcess.literature2Txt(literature,"materialLib","4.txt");
+        PostProcess.literature2Txt(literature, "materialLib", "3.txt");
         return literature;
     }
 

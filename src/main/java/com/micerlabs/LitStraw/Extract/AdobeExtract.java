@@ -21,7 +21,7 @@ public class AdobeExtract {
 
 
     public static void main(String[] args) {
-        pdfExtract2Zip("src/main/resources/4.pdf","output/4.zip");
+        pdfExtract2Zip("src/main/resources/3.pdf","output/3.zip");
     }
 
     /**

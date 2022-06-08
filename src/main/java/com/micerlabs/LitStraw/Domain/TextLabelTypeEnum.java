@@ -3,9 +3,11 @@ package com.micerlabs.LitStraw.Domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public enum TextLabelTypeEnum {
 
     UNKNOWN(-1, "Unknown", "未知LabelType"),

@@ -1,8 +1,11 @@
 package com.micerlabs.LitStraw.Domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class TextLabel {
 
     private Text text;

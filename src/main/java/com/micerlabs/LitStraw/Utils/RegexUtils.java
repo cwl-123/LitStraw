@@ -34,6 +34,15 @@ public class RegexUtils {
     }
 
     /**
+     * 输入pdf文件全称，获取pdf文件前缀名
+     * @param totalName
+     * @return
+     */
+    public static String getTxtName(String totalName) {
+        return matchSingleRegex(totalName, "(.*)\\.txt");
+    }
+
+    /**
      * match 所有a-b类型的pattern
      */
     public static List<String> getBarPatterns(String text) {

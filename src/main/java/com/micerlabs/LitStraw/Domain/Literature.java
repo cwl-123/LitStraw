@@ -8,14 +8,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * com.micerlabs.LitStraw.Domain 通用论文格式 Literature
- *
  */
 @Data
-@Document(collection="literature")
+@Document(collection = "literature")
 public class Literature implements Serializable {
     /**
      * 论文常见字段，属性可以为空（说明无值）
@@ -23,8 +21,8 @@ public class Literature implements Serializable {
     @Id
     //主键
     private String id;
-    @Indexed(unique = true)
     // 论文标题
+//    @Indexed(name = "title", unique = true)
     private String title;
     // 论文摘要  caption == Abstract
     private Section summary;
@@ -42,7 +40,6 @@ public class Literature implements Serializable {
     private List<Section> floatSectionList = new ArrayList<>();
 
 
-
     @Override
     public String toString() {
         return "Literature{" +
@@ -52,6 +49,6 @@ public class Literature implements Serializable {
                 ", introduction=" + introduction +
                 ", mainBody=" + mainBody +
                 ", appendix=" + appendix +
-                ", citationList=" + citationList ;
+                ", citationList=" + citationList;
     }
 }

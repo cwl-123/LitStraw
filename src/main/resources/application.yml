@@ -4,7 +4,7 @@ spring:
       max-file-size: 10MB # 设置单个文件的大小为10M
   data:
     mongodb:
-      uri: mongodb://localhost:27017/product_paper_content_v1
+      uri: mongodb://localhost:27017/product_paper_content_vj
   redis:
     database: 0
     host: localhost
@@ -17,12 +17,8 @@ server:
   port: 8082
 
 config:
-  wordFileSuffix: "pdf2doc/"
   storePath: "materialLib"
 
 api-credentials: "src/main/resources/pdfservices-api-credentials.json"
-
-logging:
-  level: INFO
 
 

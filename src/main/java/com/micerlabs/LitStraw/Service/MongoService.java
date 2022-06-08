@@ -40,6 +40,17 @@ public class MongoService {
         return mongodao.findByTitle(title);
     }
 
+    /**
+     * 根据Title找到Literature
+     *
+     * @param taskId
+     * @return
+     */
+    public Literature findLiteratureById(String taskId) {
+        return mongodao.findById(taskId).get();
+    }
+
+
 
     /**
      * 根据title查询LiteratureId

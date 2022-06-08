@@ -24,7 +24,7 @@ public class Init {
         // 读取文件名
         context.setImportFileName(RegexUtils.getPdfName(fileName));
         context.setImportPdfFile(context.getPdfLib() + "/" + context.getImportFileName() + context.getPdfSuffix());
-        context.setImportJsonFile(context.getJsonLib() + "/" + context.getImportFileName() + context.getJsonSuffix());
+        context.setImportJsonFile(context.getJsonLib() + "/structuredData.json");
         // 读取pdf的书签
         Set<String> bookmarkSet = new HashSet<>();
         try {

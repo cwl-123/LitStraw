@@ -2,9 +2,11 @@ package com.micerlabs.LitStraw.Domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public enum TextPatternTypeEnum {
     UNKNOWN(-1,"Unknown","未知Pattern"),
     MAIN_BODY(0,"MainBody","正文内容"),
