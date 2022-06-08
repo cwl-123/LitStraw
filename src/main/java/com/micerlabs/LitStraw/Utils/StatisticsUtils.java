@@ -3,17 +3,12 @@ package com.micerlabs.LitStraw.Utils;
 import com.micerlabs.LitStraw.Domain.*;
 import com.micerlabs.LitStraw.Domain.StatisForPara;
 import com.spire.doc.Document;
-import com.spire.doc.DocumentObject;
 import com.spire.doc.Section;
-import com.spire.doc.collections.DocumentObjectCollection;
 import com.spire.doc.documents.Paragraph;
-import com.spire.doc.fields.TextRange;
-import com.spire.doc.formatting.CharacterFormat;
 import com.spire.pdf.PdfDocument;
 import com.spire.pdf.bookmarks.PdfBookmark;
 import com.spire.pdf.bookmarks.PdfBookmarkCollection;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Pair;
 
@@ -100,10 +95,10 @@ public class StatisticsUtils {
             List<String> barPatterns = RegexUtils.getBarPatterns(statisForPara.getParaText());
             context.getBarPatternList().addAll(barPatterns);
             for (Map.Entry<TextType, Integer> entry : statisForPara.getTextTypeMap().entrySet()) {
-                if (context.getTotalStatisTextTypeMap().containsKey(entry.getKey())) {
-                    context.getTotalStatisTextTypeMap().put(entry.getKey(), context.getTotalStatisTextTypeMap().get(entry.getKey()) + entry.getValue());
+                if (context.getTextTypeMapForPaper().containsKey(entry.getKey())) {
+                    context.getTextTypeMapForPaper().put(entry.getKey(), context.getTextTypeMapForPaper().get(entry.getKey()) + entry.getValue());
                 } else {
-                    context.getTotalStatisTextTypeMap().put(entry.getKey(), entry.getValue());
+                    context.getTextTypeMapForPaper().put(entry.getKey(), entry.getValue());
                 }
             }
         }
@@ -111,7 +106,7 @@ public class StatisticsUtils {
         // 统计主要字体
         List<TextTypeNum> textTypeNumList = new ArrayList<>();
         int totalNum = 0;
-        for (Map.Entry<TextType, Integer> entry : context.getTotalStatisTextTypeMap().entrySet()) {
+        for (Map.Entry<TextType, Integer> entry : context.getTextTypeMapForPaper().entrySet()) {
             TextTypeNum textTypeNum = new TextTypeNum(entry.getKey(), entry.getValue());
             textTypeNumList.add(textTypeNum);
             totalNum += entry.getValue();
@@ -147,14 +142,11 @@ public class StatisticsUtils {
         // TODO:给个中间字体大小辅助判断？
         // 标题字体 字数超过40的font最大的TextType
         TextType titleTextType = new TextType();
-        for (Map.Entry<TextType, Integer> entry : context.getTotalStatisTextTypeMap().entrySet()) {
+        for (Map.Entry<TextType, Integer> entry : context.getTextTypeMapForPaper().entrySet()) {
             // ToDo:寻找最合适的字数限制 目前是40，支持配置&&中英文应该不一样
             if (entry.getValue() > 40 && entry.getKey().getFont() > titleTextType.getFont()) {
                 titleTextType = entry.getKey();
             }
-        }
-        if (titleTextType.getFont() > 0) {
-            context.setTitleTextType(titleTextType);
         }
 
         // 统计barPatterns,直接保留到context里
@@ -201,13 +193,17 @@ public class StatisticsUtils {
      * 字符串转换ASCII编码 处理特殊字符
      */
     public static String convertSpecSpaceOfAscii(String originalString) {
-        String asciiCode = string2Ascii(originalString);
-        // "0xa0"=160 特殊空格转普通空格 特殊"-"转正常"-"
-        // fi fl ﬁ ﬂ
-        String replacedAsciiCode = asciiCode.replace("160", "32").replace("8209", "45")
-                .replace("64257", "102,105").replace("64258", "102,108");
-        return ascii2String(replacedAsciiCode);
+        List<Integer> asciiCode = string2Ascii(originalString);
+        List<Integer> filteredAsciiCode =  new ArrayList<>();
+        // 剔除掉乱码
+        for (Integer integer : asciiCode) {
+            if (integer < 50000) {
+                filteredAsciiCode.add(integer);
+            }
+        }
+        return ascii2String(filteredAsciiCode);
     }
+
 
     /**
      * 字符串转换为Ascii
@@ -215,30 +211,24 @@ public class StatisticsUtils {
      * @param value
      * @return
      */
-    public static String string2Ascii(String value) {
-        StringBuffer sbu = new StringBuffer();
+    public static List<Integer> string2Ascii(String value) {
+        List<Integer> ints = new ArrayList<>();
         char[] chars = value.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if (i != chars.length - 1) {
-                sbu.append((int) chars[i]).append(",");
-            } else {
-                sbu.append((int) chars[i]);
-            }
+            ints.add((int) chars[i]);
         }
-        return sbu.toString();
+        return ints;
     }
 
     /**
      * Ascii转换为字符串
      *
-     * @param value
      * @return
      */
-    public static String ascii2String(String value) {
+    public static String ascii2String(List<Integer> asciiCode) {
         StringBuffer sbu = new StringBuffer();
-        String[] chars = value.split(",");
-        for (int i = 0; i < chars.length; i++) {
-            sbu.append((char) Integer.parseInt(chars[i]));
+        for (Integer integer:asciiCode){
+            sbu.append((char) integer.intValue());
         }
         return sbu.toString();
     }

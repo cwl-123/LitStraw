@@ -22,4 +22,7 @@ config:
 
 api-credentials: "src/main/resources/pdfservices-api-credentials.json"
 
+logging:
+  level: INFO
+
 

@@ -21,7 +21,7 @@ public class AdobeExtract {
 
 
     public static void main(String[] args) {
-        pdfExtract2Zip("src/main/resources/3.pdf","output/3.zip");
+        pdfExtract2Zip("src/main/resources/4.pdf","output/4.zip");
     }
 
     /**
@@ -34,7 +34,7 @@ public class AdobeExtract {
         try {
             // 初始化，创建鉴权对象实例
             Credentials credentials = Credentials.serviceAccountCredentialsBuilder()
-                    .fromFile(apiCredentials)
+                    .fromFile("src/main/resources/pdfservices-api-credentials.json")
                     .build();
             ExecutionContext executionContext = ExecutionContext.create(credentials);
             ExtractPDFOperation extractPDFOperation = ExtractPDFOperation.createNew();

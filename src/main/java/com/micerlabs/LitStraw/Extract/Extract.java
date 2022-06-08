@@ -2,18 +2,11 @@ package com.micerlabs.LitStraw.Extract;
 
 import com.micerlabs.LitStraw.Config.Config;
 import com.micerlabs.LitStraw.Domain.*;
-import com.micerlabs.LitStraw.Domain.StatisForPara;
 import com.micerlabs.LitStraw.Utils.MatchUtils;
 import com.micerlabs.LitStraw.Utils.RegexUtils;
 import com.micerlabs.LitStraw.Utils.StatisticsUtils;
-import com.google.common.collect.Lists;
-import com.spire.doc.DocumentObject;
-import com.spire.doc.documents.Paragraph;
-import com.spire.doc.fields.TextRange;
-import com.spire.doc.formatting.CharacterFormat;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,6 +15,19 @@ import java.io.IOException;
 import java.util.*;
 
 public class Extract {
+
+    /**
+     * Adobe Regex
+     */
+    private static String paraRegex = "//Document/P(.*)";
+    private static String HeadRegex = "//Document/H(.*)";
+    private static String TitleRegex = "//Document/Title";
+    private static String TableRegex = "//Document/Table(.*)";
+    private static String TableTextRegex = "//Document/P\\[\\d+\\]/Sub(.*)";
+    private static String FootnoteRegex = "//Document/Footnote(.*)";
+    private static String ReferenceRegex = "//Document/L(.*)/LBody";
+    private static String FigOrTabPattern = "(?i)Fig(.*)|(?i)Tab(.*)";
+
 
     /************************1. 提取TextList **********************************************************/
 //    /**
@@ -42,7 +48,6 @@ public class Extract {
 //    }
 
     /**
-     *
      * @param jsonPath eg: "data/2/structuredData.json"
      * @return
      * @throws IOException
@@ -156,18 +161,9 @@ public class Extract {
             return Collections.emptyList();
         }
         List<TextLabel> textLabelList = new ArrayList<>();
-        TextLabelTypeEnum lastLabelType = TextLabelTypeEnum.UNKNOWN;
         for (Text text : textList) {
-            TextLabelTypeEnum currentLabelType = markTagForLabel(text, context);
-//            // 合并同类项
-//            if (lastLabelType.equals(currentLabelType) && (currentLabelType.equals(TextLabelTypeEnum.MAIN_BODY) || currentLabelType.equals(TextLabelTypeEnum.REFERENCE))) {
-//                TextLabel textLabel = textLabelList.get(textLabelList.size() - 1);
-//                textLabel.setText(textLabel.getText() + fillPoint(textLabel.getText(), text.getText()) + text.getText());
-//            } else {
-//                lastLabelType = currentLabelType;
-//                textLabelList.add(new TextLabel(text.getText(), text.getTextType(), currentLabelType));
-//            }
-            textLabelList.add(new TextLabel(text.getContent(), text.getTextType(), currentLabelType));
+            TextLabelTypeEnum currentLabelType = markTagForLabelOfPath(text, context);
+            textLabelList.add(new TextLabel(text, currentLabelType));
         }
         convertLabelAfterMarkTag(textLabelList, context);
         return textLabelList;
@@ -200,9 +196,9 @@ public class Extract {
                 }
             } else {
                 // 1.3 没有CaptionTextTypeSet，用加粗判断
-                if (text.getTextType().getFontName() != null && text.getTextType().isBold()) {
-                    return TextLabelTypeEnum.CAPTION;
-                }
+//                if (text.getTextType().getFontName() != null && text.getTextType().isBold()) {
+//                    return TextLabelTypeEnum.CAPTION;
+//                }
             }
         }
         // 1.4 如果是CaptionKeyWordSet里的关键词，也直接被打上Caption标签 eg Abstract
@@ -234,62 +230,41 @@ public class Extract {
         return TextLabelTypeEnum.OTHER;
     }
 
+
+    private static TextLabelTypeEnum markTagForLabelOfPath(Text text, Context context) {
+        String path = text.getPath();
+        if (path.matches(paraRegex)) {
+            // 是第一页的话需要特别小心地清除杂项
+            if (text.getPage() == context.getTitlePage()) {
+                if (!context.getMainTextTypeSet().contains(text.getTextType()) && !context.getSecondaryBodyTextTypeSet().contains(text.getTextType())){
+                    return TextLabelTypeEnum.OTHER;
+                }
+            }
+            return TextLabelTypeEnum.MAIN_BODY;
+        }
+        if (path.matches(HeadRegex)) {
+            return TextLabelTypeEnum.CAPTION;
+        }
+        if (path.matches(ReferenceRegex)) {
+            return TextLabelTypeEnum.REFERENCE;
+        }
+        return TextLabelTypeEnum.OTHER;
+    }
+
     /**
      * 第一轮打完标后的标签转换。
+     * 找到title + 图表文字打上VICE_MAIN_BODY标签
      */
     private static void convertLabelAfterMarkTag(List<TextLabel> textLabelList, Context context) {
-        // 上一个/下一个 (i-1/i+1) 的TextLabelTypeEnum类型
-        TextLabelTypeEnum lastTextLabelType = TextLabelTypeEnum.UNKNOWN;
-        TextLabelTypeEnum nextTextLabelType = TextLabelTypeEnum.UNKNOWN;
-
-        for (int i = 0; i < textLabelList.size(); i++) {
-            if ((i + 1) < textLabelList.size()) {
-                nextTextLabelType = textLabelList.get(i + 1).getLabelType();
+        for (TextLabel textLabel : textLabelList) {
+            if (textLabel.getText().getPath().matches(TitleRegex)) {
+                context.setTitle(textLabel.getText().getContent());
+                context.setTitlePage(textLabel.getText().getPage());
             }
-            TextLabel textLabel = textLabelList.get(i);
-
-            if (CollectionUtils.isEmpty(context.getBookMarkSet())) {
-                // 没书签情况下，收集Caption TextType信息
-                if (textLabel.getLabelType().equals(TextLabelTypeEnum.CAPTION)) {
-                    context.getCaptionTextTypeSet().add(textLabel.getTextType());
-                }
-            }
-
-            // Vice-Caption下一个非MainBody的需要转成Vice-MainBody
-            if (textLabel.getLabelType().equals(TextLabelTypeEnum.VICE_CAPTION)
-                    && !nextTextLabelType.equals(TextLabelTypeEnum.MAIN_BODY)) {
-                textLabelList.get(i + 1).setLabelType(TextLabelTypeEnum.VICE_MAIN_BODY);
-            }
-
-            // Note:Stable Rule 处理公式 MainBody->Other。MainBody上下都是Other&&太短，转成Other
-            if (textLabel.getLabelType().equals(TextLabelTypeEnum.MAIN_BODY) && textLabel.getText().length() < 15
-                    && nextTextLabelType.equals(TextLabelTypeEnum.OTHER) && lastTextLabelType.equals(TextLabelTypeEnum.OTHER)) {
-                textLabelList.get(i).setLabelType(TextLabelTypeEnum.OTHER);
-            }
-            lastTextLabelType = textLabel.getLabelType();
-        }
-
-        // Note: Trick Rule Abstract后面只保留一个MainBody作为摘要，其他从Abstract到Introduction的东西都不要。All->Other
-        if (context.getAbstractIndex() != 0 && context.getIntroductionIndex() != 0) {
-            for (int i = context.getAbstractIndex() + 2; i < context.getIntroductionIndex(); i++) {
-                textLabelList.get(i).setLabelType(TextLabelTypeEnum.OTHER);
+            if (textLabel.getLabelType().equals(TextLabelTypeEnum.MAIN_BODY) && textLabel.getText().getContent().matches(FigOrTabPattern)) {
+                textLabel.setLabelType(TextLabelTypeEnum.VICE_MAIN_BODY);
             }
         }
-
-        if (CollectionUtils.isEmpty(context.getBookMarkSet())) {
-            for (TextLabel textLabel : textLabelList) {
-                // Stable Rule : 没书签的情况下，Caption字体，需要把相同字体的 Other 转 Caption 或 MainBody
-                if (textLabel.getLabelType().equals(TextLabelTypeEnum.OTHER) && context.getCaptionTextTypeSet().contains(textLabel.getTextType())) {
-                    // Caption长度需要限制
-                    if (textLabel.getText().length() >= 10 && textLabel.getText().length() <= 100) {
-                        textLabel.setLabelType(TextLabelTypeEnum.CAPTION);
-                    } else {
-                        textLabel.setLabelType(TextLabelTypeEnum.MAIN_BODY);
-                    }
-                }
-            }
-        }
-
     }
 
     /**
@@ -315,17 +290,10 @@ public class Extract {
         if (CollectionUtils.isEmpty(textLabelList)) {
             return Collections.emptyList();
         }
-        /**
-         * Stable Rule: 公式勘测 Equation Survey
-         * 识别成Other
-         */
-
-
         List<TextPattern> textPatternList = new ArrayList<>();
-        for (int i = 0; i < textLabelList.size(); i++) {
-            TextLabel textLabel = textLabelList.get(i);
-            TextPatternTypeEnum patternType = markTagForPattern(textLabel, i / textLabelList.size());
-            textPatternList.add(new TextPattern(patternType, textLabel.getText(), textLabel.getTextType(), textLabel.getLabelType()));
+        for (TextLabel textLabel : textLabelList) {
+            TextPatternTypeEnum patternType = markTagForPattern(textLabel);
+            textPatternList.add(new TextPattern(textLabel, patternType));
         }
         return textPatternList;
     }
@@ -338,9 +306,9 @@ public class Extract {
      * // vice-Caption -> Caption
      * // vice-MainBody -> MainBody
      * // Other -> Other
-     * // Reference -> MainBody 或 Other
+     * // Reference -> MainBody
      */
-    private static TextPatternTypeEnum markTagForPattern(TextLabel textLabel, double position) {
+    private static TextPatternTypeEnum markTagForPattern(TextLabel textLabel) {
         if (textLabel.getLabelType().equals(TextLabelTypeEnum.CAPTION)) {
             return TextPatternTypeEnum.CAPTION;
         }
@@ -357,13 +325,7 @@ public class Extract {
             return TextPatternTypeEnum.OTHER;
         }
         if (textLabel.getLabelType().equals(TextLabelTypeEnum.REFERENCE)) {
-            // Reference标签，若position靠前则无用，需要打Other标签后期删除;
-            // 若position靠后则需要打MainBody标签后期保留
-            // ToDo:0.8,250可配置成参数
-            if (textLabel.getText().length() > new Config().getReferenceToMainBodyLenLimit() || position > new Config().getReferenceToMainBodyposLimit()) {
-                return TextPatternTypeEnum.MAIN_BODY;
-            }
-            return TextPatternTypeEnum.OTHER;
+            return TextPatternTypeEnum.MAIN_BODY;
         }
         return TextPatternTypeEnum.OTHER;
     }

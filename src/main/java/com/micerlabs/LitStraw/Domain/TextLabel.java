@@ -5,13 +5,11 @@ import lombok.Data;
 @Data
 public class TextLabel {
 
-    private String text;
-    private TextType textType;
+    private Text text;
     private TextLabelTypeEnum labelType;
 
-    public TextLabel(String text, TextType textType, TextLabelTypeEnum textLabelType) {
+    public TextLabel(Text text, TextLabelTypeEnum textLabelType) {
         this.text = text;
-        this.textType = textType;
         this.labelType = textLabelType;
     }
 
@@ -19,7 +17,6 @@ public class TextLabel {
     public String toString() {
         return "Label{" +
                 "labelType=" + labelType +
-                ", textType=" + textType +
                 ", text='" + text + '\'' +
                 '}';
     }

@@ -93,8 +93,8 @@ public class LiteratureService {
 
         task.updateProgress(50, "Text labeled started.");
         redisService.saveTask(task);
-        // 初步分析doc
-        List<StatisForPara> statisForParas = Init.preAnalyseForDoc(context);
+//        // 初步分析doc
+//        List<StatisForPara> statisForParas = Init.preAnalyseForDoc(context);
 
         // 1.根据TextType聚合，doc读成List<Text>
         String jsonPath = "data/2/structuredData.json";
@@ -145,60 +145,48 @@ public class LiteratureService {
     }
 
     /**
-     * 单一论文处理-用于批处理调用
+     * 单一论文处理-用于批处理调用和测试
      *
-     * @param storeLib
-     * @param pdfFileName
      * @return
      */
-    public Literature singlePaperWithoutRecord(String storeLib, String pdfFileName) {
-        Context context = Init.initContext(storeLib, pdfFileName);
-        // 初步分析doc
-        List<StatisForPara> statisForParas = Init.preAnalyseForDoc(context);
-
+    public static Literature singlePaperWithoutRecord() {
+//        Context context = Init.initContext(storeLib, pdfFileName);
+        Context context = new Context();
         // 1.根据TextType聚合，doc读成List<Text>
-        String jsonPath = "data/2/structuredData.json";
+        String jsonPath = "output/structuredData 2.json";
         List<Text> textList = Extract.extractTextOfAdobe(jsonPath);
-        // 中途再统计
-        Init.statis(textList, context);
-
-        // 2. Text转LabeledText
-        List<TextLabel> textLabelList = Extract.text2label(textList, context);
-
-        // 3. LabeledText转TextPattern
-        List<TextPattern> textPatternList = Extract.label2pattern(textLabelList, context);
-
-        // 以TextPatternType聚类，看看各Pattern都包含怎样的信息
-        Map<TextPatternTypeEnum, List<TextPattern>> patternTypeEnumListMap = PostProcess.separatePattern(textPatternList);
-
-        // 4. 主要过滤掉Other类别的Pattern
+        // 统计字体
+        Init.statis(textList,context);
+        List<TextLabel> textLabels = Extract.text2label(textList, context);
+        List<TextPattern> textPatternList = Extract.label2pattern(textLabels, context);
         List<TextPattern> filteredPatterns = PostProcess.textPatternsFilter(textPatternList, context);
-
         // 5. PatternList转Literature
         Literature literature = PostProcess.patternList2Literature(context, filteredPatterns);
-
-        // TODO:trick逻辑 目前title判断做的不够好
-        literature.setTitle(context.getImportFileName());
-
+        PostProcess.literature2Txt(literature,"materialLib","4.txt");
         return literature;
     }
 
-    /**
-     * 论文批处理 格式
-     * 次级文件夹
-     * @param storeLib 主文件夹
-     * @return
-     */
-    public List<Literature> multiPaperWithoutRecord(String storeLib) {
-        List<Literature> literatureList = new ArrayList<>();
-        FileUtil.modifySuffixName(storeLib + "/word", ".docx", ".doc");
-        List<String> fileNameList = FileUtil.getFile(storeLib + "/pdf");
-        for (String fileName : fileNameList) {
-            Literature literature = singlePaperWithoutRecord(storeLib, fileName);
-            literatureList.add(literature);
-        }
-        return literatureList;
+    public static void main(String[] args) {
+        Literature literature = singlePaperWithoutRecord();
+        System.out.println(literature);
     }
+
+//    /**
+//     * 论文批处理 格式
+//     * 次级文件夹
+//     * @param storeLib 主文件夹
+//     * @return
+//     */
+//    public List<Literature> multiPaperWithoutRecord(String storeLib) {
+//        List<Literature> literatureList = new ArrayList<>();
+//        FileUtil.modifySuffixName(storeLib + "/word", ".docx", ".doc");
+//        List<String> fileNameList = FileUtil.getFile(storeLib + "/pdf");
+//        for (String fileName : fileNameList) {
+//            Literature literature = singlePaperWithoutRecord(storeLib, fileName);
+//            literatureList.add(literature);
+//        }
+//        return literatureList;
+//    }
 
 }
 

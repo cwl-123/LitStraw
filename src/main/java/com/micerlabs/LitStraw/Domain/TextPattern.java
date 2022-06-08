@@ -8,18 +8,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TextPattern {
+    private TextLabel textLabel;
     private TextPatternTypeEnum patternType;
-    private String text;
-    private TextType textType;
-    private TextLabelTypeEnum labelType;
+
+    public String getTextContent() {
+        if (textLabel != null && textLabel.getText() != null) {
+            return textLabel.getText().getContent();
+        }
+        return null;
+    }
 
     @Override
     public String toString() {
         return "Pattern{" +
                 "patternType=" + patternType +
-                ", labelType=" + labelType +
-                ", text='" + text + '\'' +
-                ", textType=" + textType +
+                ", textLabel=" + textLabel +
                 '}';
     }
 

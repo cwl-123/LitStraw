@@ -5,6 +5,7 @@ import com.micerlabs.LitStraw.Utils.FileUtil;
 import com.micerlabs.LitStraw.Utils.MatchUtils;
 import com.micerlabs.LitStraw.Utils.RegexUtils;
 import com.github.houbb.word.checker.util.EnWordCheckers;
+import com.micerlabs.LitStraw.Utils.StatisticsUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.compress.utils.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -59,21 +60,9 @@ public class PostProcess {
             return Collections.emptyList();
         }
         List<TextPattern> filteredPattern = new ArrayList<>();
-        TextPatternTypeEnum lastPatternType = TextPatternTypeEnum.UNKNOWN;
-        for (int i = 0; i < patternList.size(); i++) {
-            TextPattern textPattern = patternList.get(i);
+        for (TextPattern textPattern : patternList) {
             if (shouldRetainPattern(textPattern)) {
-                TextPatternTypeEnum patternType = textPattern.getPatternType();
-                // 合并同类项。patternType==MainBody的合并，Caption不合并
-                if (patternType.equals(TextPatternTypeEnum.MAIN_BODY) && lastPatternType.equals(patternType)) {
-                    TextPattern filteredPatternEnd = filteredPattern.get(filteredPattern.size() - 1);
-                    filteredPatternEnd.setText(filteredPatternEnd.getText() + textPattern.getText());
-                } else {
-                    lastPatternType = patternType;
-                    filteredPattern.add(textPattern);
-                }
-            } else {
-                context.getFilteredPatternIndex().add(i);
+                filteredPattern.add(textPattern);
             }
         }
         return filteredPattern;
@@ -98,7 +87,7 @@ public class PostProcess {
          * MainBody中一些东西剔除 如 合并大块后文本数量实在太少的
          */
         if (patternType.equals(TextPatternTypeEnum.MAIN_BODY)) {
-            if (textPattern.getText().length() <= 3) {
+            if (textPattern.getTextContent().length() <= 3) {
                 // ToDo:3封装成参数
                 return false;
             }
@@ -106,7 +95,7 @@ public class PostProcess {
 
         // 通用匹配器 [+-*/><]|纯数字
         String generalRegex = "\\d+|\\+|\\-|\\*|\\/|\\>|\\<";
-        if (Pattern.matches(generalRegex, textPattern.getText())) {
+        if (Pattern.matches(generalRegex, textPattern.getTextContent())) {
             return false;
         }
         return true; //默认保留
@@ -120,23 +109,52 @@ public class PostProcess {
      * patternList转化为Literature
      */
     public static Literature patternList2Literature(Context context, List<TextPattern> patternList) {
-
         //构造Literature
         Literature literature = new Literature();
-
-        // 挑出表格出来作为浮动体，不放进去
+        // 挑出图表出来作为浮动体，不放进去
         literature.setFloatSectionList(selectFloatSection(patternList));
-
-        List<Section> sectionList = patternListToSectionList(formatPatternList(patternList));
+        // 查找各自模块
+        List<Section> sectionList = patternListToSectionList(formatPatternList(textPatternsFilter(patternList, context)));
         int abstractIdx = findFeatureCaptionIdx(sectionList, ABSTRACT);
         int keywordsIdx = findFeatureCaptionIdx(sectionList, KEYWORDS);
         int introductionIdx = findFeatureCaptionIdx(sectionList, INTRODUCTION);
         int referencesIdx = findFeatureCaptionIdx(sectionList, REFERENCES);
         int appendixIdx = findFeatureCaptionIdx(sectionList, APPENDIX);
-        //论文正文搜索起止范围
+
+        // 标题
+        if (context.getTitle() != null) {
+            literature.setTitle(context.getTitle());
+        }
+        // 摘要
+        if (abstractIdx != -1) {
+            literature.setSummary(sectionList.get(abstractIdx));
+        } else if (sectionList.get(0).getCaption() == null) {
+            // 如果没有Abstract关键字怎么办?找到第一个没有Caption的Section，人工设置为"Abstract"
+            literature.setSummary(sectionList.get(0));
+            abstractIdx = 0;
+        }
+        // 关键词
+        if (keywordsIdx != -1) {
+            literature.setKeywordList(sectionList.get(keywordsIdx).getContent().getTextContent());
+        }
+        // 引言
+        if (introductionIdx != -1) {
+            literature.setIntroduction(sectionList.get(introductionIdx));
+        }
+        // 附录
+        if (appendixIdx != -1) {
+            literature.setAppendix(sectionList.get(appendixIdx));
+        }
+        // 引用
+        if (referencesIdx != -1) {
+            literature.setCitationList(sectionList.get(referencesIdx));
+        }
+
+        //正文处理
+        // 论文正文搜索起止范围
         int startInx = 0, endInx = sectionList.size() - 1;
-        //TODO:如果顺序不一定是这样就需要封装成List排序取开头或结尾
-        //靠前范围
+        // TODO:如果顺序不一定是这样就需要封装成List排序取开头或结尾
+        // 靠前范围
         if (introductionIdx != -1) {
             startInx = introductionIdx + 1;
         } else if (keywordsIdx != -1) {
@@ -151,29 +169,9 @@ public class PostProcess {
             endInx = referencesIdx - 1;
         }
 
-        if (context.getTitle() != null) {
-            literature.setTitle(context.getTitle());
-        }
-        // TODO:如果没有Abstract关键字怎么办？目前就当正文处理
-        if (abstractIdx != -1) {
-            literature.setSummary(sectionList.get(abstractIdx));
-        }
-        if (keywordsIdx != -1) {
-            literature.setKeywordList(sectionList.get(keywordsIdx).getContent().getText());
-        }
-        if (introductionIdx != -1) {
-            literature.setIntroduction(sectionList.get(introductionIdx));
-        }
-        if (appendixIdx != -1) {
-            literature.setAppendix(sectionList.get(appendixIdx));
-        }
-        if (referencesIdx != -1) {
-            literature.setCitationList(sectionList.get(referencesIdx));
-        }
-        //正文处理
         for (int i = startInx; i <= endInx; i++) {
             Section section = sectionList.get(i);
-            if (section.getCaption() == null || !removeSectionCaptionNameSet.contains(section.getCaption().getText())) {
+            if (section.getCaption() == null || !removeSectionCaptionNameSet.contains(section.getCaption().getTextContent())) {
                 literature.getMainBody().add(section);
             }
         }
@@ -189,19 +187,10 @@ public class PostProcess {
     private static List<Section> selectFloatSection(List<TextPattern> patternList) {
         List<Section> floatSection = new ArrayList<>();
         List<TextPattern> shouldDeleteSection = new ArrayList<>();
-        for (int i = 0; i < patternList.size(); i++) {
-            if (patternList.get(i).getLabelType().equals(TextLabelTypeEnum.VICE_CAPTION)) {
-                if ((i + 1) < patternList.size() && patternList.get(i + 1).getLabelType().equals(TextLabelTypeEnum.VICE_MAIN_BODY)) {
-                    Section section = new Section(patternList.get(i), patternList.get(i + 1));
-                    floatSection.add(section);
-                    shouldDeleteSection.add(patternList.get(i));
-                    shouldDeleteSection.add(patternList.get(i + 1));
-                    i++;
-                } else {
-                    Section section = new Section(patternList.get(i));
-                    floatSection.add(section);
-                    shouldDeleteSection.add(patternList.get(i));
-                }
+        for (TextPattern textPattern : patternList) {
+            if (textPattern.getTextLabel().getLabelType().equals(TextLabelTypeEnum.VICE_MAIN_BODY)) {
+                floatSection.add(new Section(null, textPattern, null));
+                shouldDeleteSection.add(textPattern);
             }
         }
         patternList.removeAll(shouldDeleteSection);
@@ -260,7 +249,8 @@ public class PostProcess {
             if (textPattern.getPatternType().equals(TextPatternTypeEnum.MAIN_BODY)
                     && lastFormattedPatternType.equals(TextPatternTypeEnum.MAIN_BODY)) {
                 TextPattern lastFormattedPattern = formattedPatternList.get(formattedPatternList.size() - 1);
-                lastFormattedPattern.setText(lastFormattedPattern.getText() + textPattern.getText());
+                lastFormattedPattern.getTextLabel().getText().setContent(lastFormattedPattern.getTextContent() +
+                        " " + textPattern.getTextContent());
             } else {
                 formattedPatternList.add(textPattern);
                 lastFormattedPatternType = textPattern.getPatternType();
@@ -283,7 +273,7 @@ public class PostProcess {
             Section section = sectionList.get(i);
             TextPattern caption = section.getCaption();
             for (String pattern : split) {
-                if (caption != null && MatchUtils.matchKeyWordForPattern(caption.getText(), pattern)) {
+                if (caption != null && MatchUtils.matchKeyWordForPattern(caption.getTextContent(), pattern)) {
                     return i;
                 }
             }
@@ -313,7 +303,7 @@ public class PostProcess {
             Section summary = literature.getSummary();
             if (summary != null) {
                 appendToTxt(outputLocation, "==Abstract==");
-                List<String> summaryText = textProcessor(summary.getContent().getText());
+                List<String> summaryText = textProcessor(summary.getContent().getTextContent());
                 summaryText.remove("All rights reserved");
                 // 去掉 ：© 2011 Elsevier Ltd. 和 All rights reserved
                 String s1 = summaryText.get(summaryText.size() - 1);
@@ -328,7 +318,7 @@ public class PostProcess {
             Section introduction = literature.getIntroduction();
             if (introduction != null) {
                 appendToTxt(outputLocation, "==Introduction==");
-                List<String> introductionText = textProcessor(introduction.getContent().getText());
+                List<String> introductionText = textProcessor(introduction.getContent().getTextContent());
                 for (String s : introductionText) {
                     appendToTxt(outputLocation, s);
                 }
@@ -339,12 +329,12 @@ public class PostProcess {
             if (CollectionUtils.isNotEmpty(mainBody)) {
                 appendToTxt(outputLocation, "==MainBody==");
                 for (Section section : mainBody) {
-                    List<String> mainBodyText = textProcessor(section.getContent().getText());
+                    List<String> mainBodyText = textProcessor(section.getContent().getTextContent());
                     if (section.getCaption() != null) {
-                        mainBodyText.add(0, "Caption: " + section.getCaption().getText());
+                        mainBodyText.add(0, "Caption: " + section.getCaption().getTextContent());
                     }
                     if (section.getOutCaption() != null) {
-                        mainBodyText.add(0, "OutCaption: " + section.getOutCaption().getText());
+                        mainBodyText.add(0, "OutCaption: " + section.getOutCaption().getTextContent());
                     }
                     for (String s : mainBodyText) {
                         appendToTxt(outputLocation, s);
@@ -358,10 +348,10 @@ public class PostProcess {
                 for (Section section : floatSection) {
                     List<String> floatSectionText = new ArrayList<>();
                     if (section.getContent() != null) {
-                        floatSectionText = textProcessor(section.getContent().getText());
+                        floatSectionText = textProcessor(section.getContent().getTextContent());
                     }
                     if (section.getCaption() != null) {
-                        floatSectionText.add(0, section.getCaption().getText());
+                        floatSectionText.add(0, section.getCaption().getTextContent());
                     }
                     for (String s : floatSectionText) {
                         appendToTxt(outputLocation, s);
@@ -399,6 +389,7 @@ public class PostProcess {
 
     /**
      * Caption内容追加写入txt
+     *
      * @param outputLocation
      * @param literature
      */
@@ -410,10 +401,10 @@ public class PostProcess {
         for (Section section : mainBody) {
             if (section != null) {
                 if (section.getOutCaption() != null) {
-                    appendToTxt(outputLocation, section.getOutCaption().getText());
+                    appendToTxt(outputLocation, section.getOutCaption().getTextContent());
                 }
                 if (section.getCaption() != null) {
-                    appendToTxt(outputLocation, section.getCaption().getText());
+                    appendToTxt(outputLocation, section.getCaption().getTextContent());
                 }
             }
         }
@@ -421,6 +412,7 @@ public class PostProcess {
 
     /**
      * 所有内容追加写入txt
+     *
      * @param outputLocation
      * @param literature
      */
@@ -432,10 +424,10 @@ public class PostProcess {
         for (Section section : mainBody) {
             if (section != null) {
                 if (section.getOutCaption() != null) {
-                    appendToTxt(outputLocation, section.getOutCaption().getText());
+                    appendToTxt(outputLocation, section.getOutCaption().getTextContent());
                 }
                 if (section.getCaption() != null) {
-                    appendToTxt(outputLocation, section.getCaption().getText());
+                    appendToTxt(outputLocation, section.getCaption().getTextContent());
                 }
             }
         }
@@ -447,18 +439,18 @@ public class PostProcess {
      * Note:Stable Rule
      */
     public static List<String> textProcessor(String text) {
-        // 1.过滤掉引用  规则:若数字被()|[]括起来，则剔除掉
-        String deletePattern = "\\([^)]*\\d+[^)]*\\)|\\[[^]]*\\d+[^]]*\\]";
-        Matcher matcher = Pattern.compile(deletePattern).matcher(text);
-        List<String> brackets = RegexUtils.matchAllRegex(text, deletePattern);
+        // 0.删除乱码
+        String str = StatisticsUtils.convertSpecSpaceOfAscii(text);
+
+        // 1.过滤掉引用  规则:若(<>)被()|[]括起来，则剔除掉 .*?最短匹配而非贪婪匹配
+        String deletePattern = "\\(.*?\\(\\<\\>\\).*?\\)";
+        List<String> brackets = RegexUtils.matchAllRegex(str, deletePattern);
         for (String bracket : brackets) {
-            if (bracket.length() > 10) {
-                text = text.replace(bracket, "");
-            }
+            str = str.replace(bracket, "");
         }
 
         // 2."  "->" "; " )"替换成")"
-        String textAfterReplace = text.replace("   ", " ").replace("  ", " ").replace(" )", ")").replace(" ,", ",").replace("- ", "");
+        String textAfterReplace = str.replace("   ", " ").replace("  ", " ").replace(" )", ")").replace(" ,", ",").replace("- ", "");
 
         // 3.处理barPattern,带"-"字符串
         String textAfterBarProcess = processWordContainsBar(textAfterReplace);

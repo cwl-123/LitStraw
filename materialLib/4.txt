@@ -1,0 +1,282 @@
+Change in the chemical content of untreated wastewater of Athens, Greece under COVID-19 pandemic
+==Abstract==
+Received 2 March 2021 Received in revised form 19 July 2021 Accepted 20 July 2021 Available online 30 July 2021 Editor: Damià Barceló Wastewater-based epidemiology High resolution mass spectrometry Wide-scope screening Illicit drug consumption changes Surfactants
+COVID-19 pandemic spread rapidly worldwide with unanticipated effects on mental health, lifestyle, stability of economies and societies
+Although many research groups have already reported SARS-CoV-2 surveillance in untreated wastewater, only few studies evaluated the implications of the pandemic on the use of chemicals by influent wastewater analysis
+Wide-scope target and suspect screening were used to monitor the effects of the pandemic on the Greek population through wastewater-based epidemiology
+Composite 24 h influent wastewater samples were collected from the wastewater treatment plant of Athens during the first lockdown and analyzed by liquid chromatography mass spectrometry
+A wide range of compounds was investigated (11,286), includingantipsychoticdrugs, illicit drugs, tobacco compounds, food additives, pesticides, biocides, surfactants and industrial chemicals
+Mass loads of chemical markers were estimated and compared with the data obtained under non-COVID-19 conditions (campaign 2019)
+The findings revealed increases in surfactants (+196%), biocides (+152%), cationic quaternary ammonium surfactants (used as surfactants and biocides) (+331%), whereas the most important decreases were estimated for tobacco (−33%) and industrial chemicals (−52%)
+The introduction of social-restriction measures by the government affected all aspects of life.
+==Introduction==
+The coronavirus SARS-CoV-2 was firstly reported in the Chinese city of Wuhan in December 2019
+Since then, the coronavirus disease
+On 11th of March 2020, the World Health Organization Holshue et al., 2020)
+The wastewater-based epidemiology et al., 2020; Medema et al., Diamanti et al., 2019; et al., 2018;
+Liquid chromatography tandem mass spectrometry is the most widely-used technique in WBE for the identification and quantification of human biomarkers through target screening Thomaidis et al., 2016)
+Recently, high resolution mass spectrometry Gago-Ferrero et al., 2020)
+Application of these new HRMS methods can lead to the tentative identification of hundreds of overlooked emerging contaminants and their transformation products 2019a)
+So far the majority of the WBE researchers have focused on the detection of SARS-CoV-2, with a few studies evaluating substances related to population habits and life style changes during the COVID-19 pandemic Reinstadler et al., 2021;
+Likewise, a study in Austria observed a similar trend where the alcohol consumption declined around 20%
+The same study investigated licit and illicit drug consumption
+No variation before and during COVID-19 lockdown on the consumption of long-term pharmaceuticals was found, but significant changes were estimated for short-term pharmaceuticals and some recreational drugs
+No statistically significant difference was found for caffeine and nicotine consumption et al., 2021)
+In New York, a research group compared the quantity of SARS-CoV-2 in wastewater with the overall COVID-19 positive tests in humans and the consumption of drugs estimated by WBE analysis
+It was concluded that high quantities of SARS-CoV-2 in wastewater and many positive clinical tests were strongly correlated to higher consumption rates of antidepressants, antiepileptics, antihypertensives, antihistamines, opioids, and stimulants
+Finally, the stress of the population in Kentucky and Tennessee during the first period of the pandemic was assessed by determination of isoprostanes in wastewater
+The elevated levels of these specific human stress bio-markers in wastewater were attributed to the oxidative anxiety induced by COVID-19 uncertainties
+The objective of this study was to investigate the presence of different classes of chemical compounds in influent wastewater before and during the pandemic that could be related to measures taken by the authorities, such as social distancing and lockdown
+Therefore, novel HRMS methods such as wide-scope target and suspect screening were used to screen for the occurrence of emerging substances in combination with WBE to estimate the exposure and use of the detected substances
+Critical evaluation and comparison of the results under lockdown conditions and under non-pandemic conditions were performed and differences in the consumption were revealed for (i) antipsychotic drugs including benzodiazepines and antidepressants, (ii) illicit drugs and (iii) markers of human habits and activities, such as food additives, dietary supplements, tobacco compounds, biocides and surfactants
+For the first time, this study examined and estimated the loads of such a high number of compounds (11,286 compounds were screened) from various chemical classes that might be associated with the COVID-19 pandemic situation in Athens, Greece
+This work can be used as an indicator for further studies and could potentially be extended to other countries
+==MainBody==
+OutCaption: 2. Material and methods 
+Caption: 2.1. Chemicals and reagents 
+Acetonitrile, methanol, hydrochloric acid (37%) and ethyl acetate (99.9%) were purchased from Merck (Darmstadt, Germany), 2-propanol was purchased from Fisher Scientific (Geel, Belgium), sodium hydroxide monohydrate (NaOH) for trace analysis, formic acid, ammonium formate were purchased from Fluka (Buchs, Switzerland), and ammonia 25% was purchased from Panreac (Barcelona, Spain)
+Empty polypropylene tubes (6 mL) and the following sorbent materials: Sepra ZT (Strata-X), Sepra ZT-WCX (Strata-X-CW) and ZT-WAX (Strata-X-AW) were purchased from Phenomenex (Torrance, USA)
+The polar sorbent (hyper crosslinked hydroxylated polystyrene-divinylbenzene copolymer; isolute ENV+) and the frits (20 μm, 6 mL) that separate the cartridge in layers were purchased from Biotage (Ystrad Mynach, UK)
+Wastewater ltration was realized with glass ber lters (GF/F, pore size 0.7 μm), purchased from Whatman International Ltd.(Maidstone, England)
+Benzodiazepines and antipsychotics antidepressants, further subcategorized into tricyclic, tetracyclic, selective serotonin reuptake inhibitors (SSRIs), serotonin−norepinephrine reuptake inhibitors (SNRIs), were purchased from Alfa-Aesar (Voula, Athens, Greece) and Merck (Chalkidona, Greece)
+Target compounds were supplied by Bruker Daltonics (in total 675 reference standards of pesticides), the EAWAG (270 standards covering different chemical classes), the Laboratory of the Olympic Sports Center of Athens (142 illicit drugs including new designer drugs)
+Drugs of abuse, divided in the following subcategories: i) opiates, opioids and related metabolites, ii) amphetamines, iii) hallucinogens (cannabinoids, lysergic acid diethylamide (LSD), and derivatives)) and iv) cocaine and related metabolites were purchased from LGC Standards (Athens, Greece)
+Information on the determined compounds is given in Table S1 of the Supporting Information (SI)
+Caption: 2.2. Sample collection 
+24-h composite flow-proportional influent wastewater samples were collected from the inlet of Psyttalia WWTP in cooperation with Athens Water Supply & Sewerage Company
+Samples were obtained during a ‘normal’ week, avoiding special events such as public holidays or festivals and heavy rain conditions that can potentially limit the WWTP capabilities
+A prolonged sampling of fifteen wastewater consecutive days was executed in 2020 under full lockdown conditions
+The average wastewater flow rate was 794,871 m3 day−1 in 2019 and 788,727 m3 day−1 in 2020
+The number of inhabitants was estimated at 3,995,020 for 2019 and 4,009,346 for 2020
+The estimated number of inhabitants between the two campaigns did not change significantly
+All the information about the studied WWTP can be found in Section 2 of the supporting information (SI) document
+All influent wastewater samples were collected in high-density polyethylene bottles previously cleaned with methanol and Milli-Q water
+The wastewater samples were ltered with glass ber lters (pore size 0.7 μm) upon arrival at the laboratory and the pH was adjusted (6.5 ± 0.1) using formic acid 0.1 M
+Caption: 2.3. Sample preparation protocol 
+Extraction of the samples was carried out using a modified protocol Kern et al., 2009)
+Sample aliquots Ferrero et al., 2020)
+Briey, the cartridges were activated with 3 mL of methanol, followed by 3 mL of water
+Afterwards, the samples were loaded without using vacuum
+Then, cartridges were dried for 1 h under vacuum
+The elution was performed with a mixture of 4 mL methanol and ethyl acetate (50:50, v/v) containing 2% ammonia and a mixture of 2 mL methanol and ethyl acetate (50:50, v/v) containing 1.7% formic acid
+The extracts were evaporated to a volume of 50 μLap-proximately, using a nitrogen stream and were reconstituted to a nal volume of 500 μL methanol and water (50:50, v/v)
+Finally, the extracts were ltered using 0.2 μm RC membrane lters (Phenomenex, Torrance, CA, USA)
+Caption: 2.4. Instrumentation and analytical methods 
+The extracts were analyzed with two instrumental methods: a highly sensitive method for the detection and quantification of drugs of abuse and antipsychotic drugs by liquid chromatography tandem mass spectrometry Thomaidis Gago-Ferrero et al., 2015)
+The LC-MS/MS method was used for selected target drugs since it yields lower limits of detection (LOD)
+Caption: 2.4.1. LC-MS/MS analytical method 
+LC-MS/MS analysis was conducted using a Thermo UHPLC Accela system, which was connected to a Thermo TSQ Quantum Access triple-200 quadrupole mass spectrometer (San Jose, USA)
+The mass spectrometer is equipped with an electrospray ionization source in both positive and negative ionization
+The chromatographic column Atlantis T3 C18 (100 mm × 2.1 mm, 3 μm) was used for separation at a constant ow rate (100 μLmin−1)
+The injection volume was 10 μL
+Detailed information about the gradient program and the ESI settings are presented in Table S3A
+Caption: 2.4.2. LC-HRMS analytical method 
+LC-HRMS analysis was performed on an UHPLC/QTOF-MS system
+The system is equipped with a UHPLC device (Dionex UltiMate 3000 RSLC from Thermo Fisher Scientific) and is coupled to the Bruker Maxis Impact QTOF-MS/MS analyzer (Bremen, Germany)
+The chromatographic column Acclaim RSLC C18 column (2.1 × 100 mm, 2.2 μm) was preceded by an pre-column ACQUITY UPLC BEH C18 1.7 μm (Waters, Ireland)
+The pre-guard column and the analytical column were thermostated at 30 °C during separation
+The samples were analyzed with four acquisition modes: broadband collision-induced dissociation (bbCID, data-independent) in positive ionization, bbCID in negative ionization, data-dependent MS/MS acquisition (AutoMS) recording the five most-abundant ions per scan in positive ionization and AutoMS in negative ionization
+In both cases the scanning range was set to 50–1000 Da with scan rate of 2 Hz
+The collision energy was set to 25 eV for bbCID and predefined values based on the mass and the charge state of every ion
+More information of the instrumental performance is provided in Tables S3B and S3C
+OutCaption: 2.5. Computational resources 
+Caption: 2.5.1. LC-MS/MS computational workflow 
+The Xcalibur software suite (TSQ14, SUR1, XReport 1.0, 2.0 SR2) was used for instrument control, data recording and assessment
+The selected reaction monitoring (SRM) mode was used and the transitions of the precursor ion and its two most abundant product ions were monitored
+All the peaks were finally integrated using LCquan 2.7 (Thermo Fisher Scientific)
+Caption: 2.5.2. LC-HRMS computational workflow 
+The raw files of the LC-HRMS analysis
+The uploaded mzML samples in DSFP pass from a non-target screening workflow involving processing with centWave peak picker using previously optimized ppm and peakwidth parameters
+The peak picking algorithm searches for consecutive masses within a mass error threshold forming peak shape in chromatographic dimension et al., 2008)
+The next step is componentization, which is a procedure for grouping peaks coming from the same compound
+The final output is a component list
+This component list can be searched for thousands of compounds by suspect screening
+Once the samples are uploaded to DSFP, they can be screened for a ‘yes/no’ presence of virtually any compound amenable to LC-MS analysis using a combination of information on its 2020)
+It is connected to the NDS module called NORMAN Substance Database Network et al., 2020), in which mass spectrometric information for the contaminants is collected (adducts, fragmentation pattern, preferable ionization, predicted retention time index etc.)
+DSFP uses this information to screen substances
+Suspect screening of 9150 compounds was performed in this study: 7586 environmentally-relevant compounds with known fragmentation, and the surfactant specific lists S7 EAWAGSURF (410 compounds) and S23 EIUBASURF (1154 compounds)
+Caption: 2.6. Semi-quantification methodology 
+Detected suspected compounds were semi-quantified based on the standard addition curve of the structurally most similar target compound
+For example, the suspected plasticizer diisobutyl phthalate was semi-quantified based on the calibration curve of the diethyl-phthalate, because the compounds have high structural similarity
+To find the structurally most similar target compound, 2D-linear fragment descriptors based on the original definitions of atom pairs and atom sequences were calculated and Tanimoto coefficient was used as the similarity distance function
+The output of the calculation is the structurally most similar target compound, and the similarity percentage between the suspected compound and the compound with the closest structure is reported
+The semi-quantification approach was validated to acquire some knowledge on the expected uncertainty
+The calibration curves for 778 compounds were generated for positive is currently under comparison within the collaborative trial on semi-quantification organized by the NORMAN network
+Caption: 2.7. Quality assurance and quality control 
+For each sampling year, 24-h flow-proportional influent wastewater samples were collected by the WWTP operators and were stored in a freezer et al., 2020; Stein and (<>)Scott, 1994)
+Caption: 2.8. Calculation of loads, assessment of the consumption of drugs and statistical analysis 
+Mass loads were calculated by multiplying the concentrations and the daily wastewater flow rate for each daily sample
+Afterwards, these loads were multiplied by specific correction factors
+Finally, population normalized consumption rates were estimated, by dividing by the number of inhabitants (inh.) within the WWTP service area and then multiplying by 1000 (mg/day/1000 inh.)
+The nonparametric Wilcoxon signed-rank test was utilized to compare the load levels between the two sampling campaigns considering a statistical significance level of p < 0.05, given that the data were not normally distributed
+The application of the statistical test was realized in R v4.0.3 through the function wilcox.test included in the stats R-package
+Caption: 3. Results and discussion 
+The Greek government announced the total lockdown due to COVID-19 pandemic on the 23rd of March 2020
+The official lockdown lasted more than five weeks according to the national organization of public health, surfactants (+196%) and biocides (+152%), whereas the most important decrease was found for tobacco (−33%) and industrial chemicals (−52%)
+The loads for all individual substances are provided at Section 4 (SI)
+The results of suspect screening are presented as heatmaps in SI at Section 5
+The loads (g day−1) and the % change before and during the COVID-19 pandemic for the various detected chemicals are discussed in detail per chemical class
+Caption: 3.1. Antipsychotic drugs 
+COVID-19 pandemic and the measures implemented by the authorities had shorthand long-term psychosocial and mental health implications
+Studies performed in Greece showed that the citizens were affected by severe anxiety, fear, depressive symptoms and
+Caption: Table 1 
+Mean mass loads Kaparounaki et al., 2020;
+Wastewater analysis showed which psychoactive pharmaceuticals were used more under pandemic conditions and to what extent
+The combination of wastewater results with medical, sociological and psychological studies can give more insight into the mental health of Athenians’ and, potentially, other populations worldwide
+Our findings showed no increase for antipsychotics, insignificant increase by 3% for antidepressants and increase in benzodiazepines by 20%
+Other pharmaceuticals, not belonging to antipsychotic drugs which are used for therapeutic purposes
+Caption: 3.1.1. Benzodiazepines 
+Benzodiazepines are a class of psychoactive pharmaceuticals with anxiolytic and hypnotic action
+During COVID-19 pandemic, an overall increase
+In 2019, the detected concentration levels for lorazepam, one of the most widely prescribed anxio-lytic drugs, were approximately 111 g day−1 and a remarkable increase of 77% was observed in 2020
+However, the detected loads for few benzodiazepines did not follow the same change of lorazepam and showed a slight decrease in 2020
+Oxazepam, the second most widely used benzodiazepine, showed a slight decrease of −16%
+Caption: 3.1.2. Antidepressants and antipsychotics 
+The concentration levels of antidepressants showed a nonsignificant increase of +3% during lockdown
+A noteworthy increase was observed only for venlafaxine, a serotonin−norepinephrine reup-take inhibitor et al., 2021)
+Both Reinstadler et al., and our WBE results did not show significant variations, even though there is evidence that the lockdown and quarantine had an impact on mental health of the communities
+Mass loads of antipsychotics remained steady
+The compounds of this pharmaceutical class are used to manage psychosis, schizophrenia, paranoia or disordered thought
+Mesoridazine was the only antipsychotic drug that showed noteworthy increase during lockdown (from 18 g day−1 to 39 g day−1, p-value<0.05), perhaps due to a change in prescription patterns
+Caption: 3.2. Illicit drugs 
+Tetrahydrocannabinol-9-carboxylic acid, which is in agreement with the report by the European Monitoring Centre for Drugs and Drug Addiction
+Ecstasy and doses per 1000 people
+The doses for MDMA were calculated to 0.28 per 1000 people in 2019 and 0.13 per 1000 people in 2020
+MDMA is a substance largely linked to parties, clubs and generally night life
+The stay-at-home measures and the closure of night clubs drastically affected the concentration levels of MDMA
+However, an increasing trend was observed for other stimulants such as amphetamine, methamphetamine and cocaine
+Cocaine consumption was monitored through concentrations of benzoylecgonine, which is the major metabolite of cocaine
+Amphetamine, showed a noteworthy increase in consumption
+Methamphetamine use in Athens continue to increase during the last years 2020)
+This trend continued and loads increased from 45 g day−1 in 2019 to 62 g day−1 under lockdown conditions in 2020
+These mass loads were back-calculated to 0.87 doses per 1000 people for 2020 and 0.59 for 2019
+Benzoylecgonine showed a substantial increase from 207 g day−1 to 350 g day−1
+This translates to an increase of cocaine consumption from 2.0 doses per 1000 citizens to 3.39 doses per 1000 citizens
+This remarkable increase in consumption of cocaine, amphetamine and methamphetamine is of concern and highlights that users maintained their access to illicit drugs despite the strict measures in movements
+It is also likely that this increase is associated with the increasing depression levels observed during lockdown 2021)
+Further investigation to confirm the establishment of these mental health conditions is needed to reach robust conclusions
+Despite the increasing trend, cocaine consumption remained lower than the mean consumption estimated in 120 cities
+Methamphetamine consumption is close to the average consumption levels,
+Caption: Table 2 
+Consumption (mean± standarddeviation) of cocaine, amphetamine, methamphetamine, and MDMA expressed as mg/day/1000 people, using correction factors
+Caption: Table 3 
+Correction factors used in the present study and calculated doses per 1000 people under normal 2020)
+The findings of our study indicate that significant and rapid changes in drug consumption patterns were observed during the early stages of the COVID-19 pandemic
+These changes can be attributed to the implementation of confinement and restriction of social interactions EMCDDA, 2020)
+Another interesting observation was the identification using the HRMS target method and corresponding reference standards, of other stimulants, such as amphetamine-p-hydroxy, para methoxy amphetamine Kinyua et al., Diamanti
+Suspect screening analysis resulted in the identification of six stimulants, namely cis-4-methylaminorex, N-methyl-2-AI, TDIQ, MMDA-2, 4,4’-Dimethylaminorex and N-hydroxy-MDA et al., 2019)
+The increasing detection of new stimulants in wastewater is of concern and may indicate that drug users were pushed toward alternative psychotropic drugs due to social isolation and the limited access to detoxification centers
+Seven opioids
+Mass loads of morphine and codeine were increased substantially, but the exclusive metabolite of heroine, 6-acetylmorphine, decreased drastically McCall et al.,
+Therefore, back-calculation was not performed for heroin
+Caption: 3.3. Tobacco consumption 
+Smoking is associated with the risk of respiratory tract infections
+A population-based research suggested that youth using e-cigarettes and cigarettes are at higher risk of COVID-19
+However, the harm from the joint effect of tobacco use and COVID-19 is not fully supported van Zyl-Smit et al., 2020)
+In this study, nicotine and two human urinary metabolites, namely cotinine and hydroxycotinine that represent smoking habits of a population were determined in wastewater
+According to the findings, a reduction in smoking habits was noticed
+The cumulative loads of cotinine, hydroxy-cotinine and nicotine reduced from 58,929 g day−1 to 44,401 g day−1 in 2020
+Furthermore, nicotine consumption was calculated using the WBE approach and specific correction factors
+The number of cigarettes per 1000 people for the campaign of 2019 were estimated between 3472 and 3800, while for 2020 were calculated between 2347 and 2809
+This behavior can be regarded as a compliance of citizens to the studies associating smoking with SARS-CoV-2, which was intensively communicated by the mass media during the first lockdown
+It should be stated that some people may found the opportunity to quit smoking, since it was revealed that the pandemic is related to respiratory diseases
+On the contrary, some others may presented an increased desire to smoke due to augmented stress of a possibly fatal illness, possibility of unemployment and feelings of insecurity
+The results of this study showed that the general population decided to reduce smoking
+Our investigation highlights that WBE can act as monitoring tool to evaluate the effect of decision-making by policymakers to measure the effect of promotional activities
+Caption: 3.4. Surfactants 
+In the present study, various classes of surfactants were examined under normal conditions in 2019 and during lockdown in 2020
+An overall significant increase
+The study reported anionic detergents and surfactants found in personal care products (soaps, shampoos, and toothpaste), surfactants used as antioxidants, solubilizers, laundry and dish products and anionic surfactants used in dishwashing and laundry, such as sodium lauryl ethyl sulfates (SLES), linear alkylbenzene sulfonates (LAS), sulfophenyl alkyl carboxylic acids (SPAC), nonylphenol ethoxylates (NPEO), nonylphenol ethoxylate sulfate (NPEO-SO4), secondary alkane sulfonates (SAS), glycol ether sulfates (GES), cationic surfactants and polyethylenoglycols (PEGs)
+It is noteworthy, that this is the first study that reported the detection of such long homologue series of PEGs in wastewater of Athens
+The heatmap that includes the summary of all detected surfactants, highlights the increase of all classes of surfactants during lockdown
+Caption: Table 4 
+Mean mass loads expressed in g day−1, standard deviations (SD), % change during the study period (2019–2020) and p-values for various classes of surfactants.(Fig
+S5C)
+Stay-at-home measures, working from home, social distancing, hand-washing and surface-disinfection advisories may have driven the observed high detection levels for all the aforementioned compounds in 2020 compared to the previous year
+More specific, LAS, GES and PEGs were the 3 surfactant classes with the highest detection levels for both years
+Caption: 3.5. Pesticides and biocides 
+The European Commission has implemented different regulations for the chemical classes of pesticides and biocides
+Likewise, the European Biocidal Product Regulation
+Although, distinct regulations were applied, some active ingredients can be used both as pesticides and biocides
+Thus, the findings of the present work were categorized in three groups: 1) PPPs used as pesticides only; 2) PPPs used as biocides and pesticides; 3) cationic surfactants with increased biocidal activity
+A slight increase of pesticide amounts was observed in the present work
+However, high variation was estimated for the compounds; for instance, the fungicides spiroxamine
+Finally, the human exposure to pesticides was not evaluated on this work, since no human urinary metabolites were investigated
+The presence of biocides in wastewater was increased considerably and the majority of them, ten out of fourteen, were only identified in 2020 for Disease Control and Prevention, 2020)
+It was proved that SARS-CoV-2 remained active on hard surfaces for hours and even days Doremalen et al., 2020)
+The population may have applied biocides used in pest control for disinfection purposes by mistake, showing the unawareness of the citizens in the use of chemicals
+Additionally, the observed increase in biocides could be attributed to the fact that people remained at homes and engaged with household activities
+Athenian citizens, obeying to the authorities’ instructions, used various types of biocidal agents for chemical disinfection
+In the present work the highest increases under lockdown conditions, considering all classes of chemicals, were observed for cationic quaternary ammonium surfactants (331%), and more specifically to benzalkonium chloride
+Wastewater analysis pointed out the change in the population habits during pandemic and showed that citizens followed the recommendations given by the authorities
+However, to fully support our findings more research is needed at local level (i.e.houses), to investigate the “real” use of these chemicals using probably questionnaires (i.e.name of used chemicals, frequency of use, way of application and application space)
+Caption: 3.6. Industrial chemicals 
+Industrial chemicals showed a noticeable decrease from 37,145 g day−1 to 24,371 g day−1
+Benzotriazoles and benzothiazoles are produced in high volumes and are used in many industrial and consumer products et al., 2013)
+Generally, the compounds of these classes showed increase in 2020, but benzotriazole and 4/5-methyl-benzotriazole, the compounds with the highest mass loads in 2019, decreased during lockdown 2020).4-tert-Octylphenol
+Per and polyfluoroalkyl substances is a class of artificial, fully fluori-nated organic compounds that are potentially harmful
+They are used as polymers, surfactants, friction reducers, and repellents
+Per-and polyfluoroalkyl substances
+They were detected at low levels both years and most of them
+Phthalates and phosphates have widespread use and environmental persistence
+In addition, they are two of the most important industrial chemicals with enormous amounts of production especially in Europe
+The only compounds that showed increase during lockdown were diethyl phthalate and dimethyl phthalate
+Di
+Suspect analysis was able to detect seventeen compounds without the need of the corresponding reference standards (Fig
+S5A), belonging to the general category of industrial chemicals
+Three compounds were phosphate esters (tris(2-butoxyethyl) phosphate, trioctyl phosphate and diethyl phosphate), three phthalate esters (isobutyl phthalate, diisobutyl phthalate and dimethyl terephthalate), five amines (diethanolamine, triethanolamine, tetradecylamine, bis-2-ethylhexylamine, and 2-naphthylamine), and six other industrial substances
+The estimated loads were lower for 2020, which was in agreement with the results from target screening
+Caption: 3.7. Food additives and dietary supplements 
+An increasing pattern was observed on dietary habits based on the investigation of the following seven compounds: acesulfame, cyclamic acid, saccharine, sucralose, triethylcitrate, indole-3-carbinol, sulforaph-ane
+The loads of these compounds cumulatively showed a substantial increase
+This change may be depicted in the chemical substances of influent wastewater
+A more detailed investigation is needed toward monitoring of food additives and dietary supplements by WBE
+Caption: 3.8. UV filters 
+The results of four UV filters, namely benzophenone 3, benzophenone 4, phenylbenzimidazole sulfonic acid and dioxybenzone showed aslightdecrease
+The low reduction of these compounds could be attributed to the fact that people staying at home do not need to protect against the sun
+However, given the low number of detected UV filters, no robust conclusions can be drawn
+Caption: 4. Limitations and future perspectives 
+The present work investigated the presence of 2136 target compounds and 9150 suspected compounds in untreated wastewater sampled in two different years (under lockdown and non-lockdown conditions), using advanced analytical and computational approaches
+An attempt was conducted to investigate the effect of COVID-19 pandemic on the use of specific compounds and the human exposure and consumption through the WBE approach
+Approximately 3% of the screened compounds were detected
+Some of them have been rarely reported in the literature, highlighting the need to constantly create and update environmentally-relevant compound databases
+Conducting such wide-scope investigations is not trivial, requires experience and significant time
+Furthermore, it is critical to apply strong quality assurance and quality control (QA&QC)
+QA&QC requires the use of many internal standards with various physicochemical properties from the beginning of an analysis (sample preparation)
+It was underlined that reference standards can assist on the semi-quantification of suspect compounds and therefore it is suggested to use chemicals of several classes that present different structures and elute throughout the chromatography
+Although a large number of chemicals was identified, only few of them could be related to human consumption
+This was due to the fact that the compound lists consisted mainly of parent compounds and not human urinary metabolites, as required by the WBE approach
+Hence, new lists should be built containing mainly metabolites
+Furthermore, estimation of human exposure to some of the identified compounds could not be performed, since stability data (in-sample and in-sewer), human urinary pharmacokinetic studies and data on interferences from additional sources in wastewater are not available
+Future studies could investigate all the mentioned limitations and propose suitable WBE biomarkers
+Other WBE issues relate to the population estimation and the refinement of existed correction factors
+Finally, we acknowledge the fact that WBE is inevitably accompanied with back-calculation estimations, which must be minimized to reduce the noise in the datasets
+Caption: 5. Conclusions 
+The present study investigated the change of chemical universe in untreated wastewater before and during the COVID-19 pandemic in Athens
+An advanced methodology was applied combining the advantages of wide-scope screening with the wastewater-based epidemiology approach
+WBE wasusedasatool to examine and assess the consumption and use of a wide variety of chemicals
+Many classes of compounds were associated with COVID-19 pandemic, reflecting the effects of lockdown and other measures in population health, habits, lifestyle and disposition
+The findings of our study indicate that significant and rapid changes in drug consumption patterns were observed during the early stages of the COVID-19 pandemic
+These changes can be attributed to the implementation of confinement and restrict social interactions
+The Athenian population followed the authorities advisories and restrictions as indicated by the substantial increase of chemical classes such as surfactants and disinfectants
+However, the consumption of drugs of abuse showed mixed trends
+COVID-19 pandemic represents a global challenge for the whole population at all levels of societies such as safety, accessible health, food security, stability of economy and unemployment
+Caption: Funding 
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profitsectors
+Caption: CRediT authorship contribution statement 
+Nikiforos Alygizakis: Investigation, Formal analysis, Data curation, Visualization, Writing – original draft
+Aikaterini Galani: Formal analysis, Investigation, Writing – original draft
+Nikolaos I
+Rousis: Formal analysis, Investigation, Writing – original draft
+Reza Aalizadeh: Formal analysis, Investigation, Writing – original draft
+Meletios-Athanasios Dimopoulos: Writing – review & editing
+Nikolaos S
+Thomaidis: Conceptualization, Funding acquisition, Writing – review & editing, Supervision
+Caption: Declaration of competing interest 
+All the authors declare no conflict of interest
+Caption: Acknowledgements 
+Authors would like to acknowledge Mr
+Spyridon Dimoulas and Mr
+Iraklis Karayiannis (EYDAP S.A.) for granting permission to the Athens WWTP and the operators of the WWTP for their support in sample collection
+Caption: Appendix A. Supplementary data 
+Supplementary data to this article can be found online at (<https://doi.org/10.1016/j.scitotenv.2021.149230>)https://doi.(<https://doi.org/10.1016/j.scitotenv.2021.149230>)org/10.1016/j.scitotenv.2021.149230

@@ -15,6 +15,7 @@ public enum TextLabelTypeEnum {
     CAPTION(3, "caption", "内容块标题字体"),
     VICE_CAPTION(4, "vice_caption", "副内容块标题字体，如图表Table 1"),
     OTHER(5, "Other", "杂项字体，一般无用");
+//    TITLE(6,"Title","文章标题");
 
     /**
      * 类型

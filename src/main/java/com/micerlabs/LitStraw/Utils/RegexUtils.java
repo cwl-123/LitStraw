@@ -10,39 +10,19 @@ import java.util.regex.Pattern;
 
 public class RegexUtils {
 
+    /**
+     * Adobe Regex
+     */
+    private static String paraRegex = "//Document/P(.*)";
+    private static String HeadRegex = "//Document/H(.*)";
+    private static String TitleRegex = "//Document/Title";
+    private static String TableRegex = "//Document/Table(.*)";
+    private static String TableTextRegex = "//Document/P\\[\\d+\\]/Sub(.*)";
+    private static String FootnoteRegex = "//Document/Footnote(.*)";
 
     /**
-     * 0. 初始化阶段
+     *
      */
-
-    /**
-     * 1. doc转List<Text>阶段
-     */
-
-    /**
-     * 2. Text转LabeledText阶段
-     */
-
-    /**
-     * 3. LabeledText转TextPattern阶段
-     */
-
-    /**
-     * 4. Pattern过滤阶段
-     */
-
-    /**
-     * 5. PatternList转Literature阶段
-     */
-
-    /**
-     * 6. 转txt文本处理阶段
-     */
-
-    /**
-     * 7. 其他
-     */
-
 
     /**
      * 输入pdf文件全称，获取pdf文件前缀名
@@ -115,5 +95,11 @@ public class RegexUtils {
         return formatStrSet;
     }
 
+
+
+
+    public static boolean match(String regex,String text){
+        return text.matches(regex);
+    }
 
 }

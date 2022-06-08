@@ -44,7 +44,7 @@ public class Context {
      * 统计指标
      */
     // 整个docx文档的 TextType和对应的String.length
-    private Map<TextType, Integer> totalStatisTextTypeMap = new HashMap<>();
+    private Map<TextType, Integer> textTypeMapForPaper = new HashMap<>();
     // 主要字体
     private Set<TextType> mainTextTypeSet = new HashSet<>();
     private int introductionIndex;
@@ -64,6 +64,7 @@ public class Context {
      * 其他
      */
     private String title;
+    private int titlePage;
     private TextType titleTextType;
     // 记录下过滤掉的Patterns Index
     private List<Integer> filteredPatternIndex = new ArrayList<>();

@@ -26,8 +26,6 @@ public class Literature implements Serializable {
     @Indexed(unique = true)
     // 论文标题
     private String title;
-    // 论文作者 TODO:暂时设置为String 后期需要再处理成List<String>
-    private String authorList;
     // 论文摘要  caption == Abstract
     private Section summary;
     // 论文关键词  TODO:暂时设置为String 后期需要再处理成List<String>
@@ -49,7 +47,6 @@ public class Literature implements Serializable {
     public String toString() {
         return "Literature{" +
                 "title=" + title +
-                ", authorList='" + authorList + '\'' +
                 ", summary=" + summary +
                 ", keywordList='" + keywordList + '\'' +
                 ", introduction=" + introduction +

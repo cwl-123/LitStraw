@@ -25,7 +25,7 @@ public class JsonAnalysis {
     }
 
     public static void test1() throws IOException, JSONException {
-        File file = new File("data/2/structuredData.json");
+        File file = new File("output/structuredData.json");
         String content = FileUtils.readFileToString(file, "UTF-8");
         JSONObject jsObj = new JSONObject(content);
         JSONArray elements = jsObj.getJSONArray("elements");
@@ -34,7 +34,7 @@ public class JsonAnalysis {
             JSONObject e = (JSONObject) element;
             double textSize = e.optDouble("TextSize", 0.0D);
             if (textSize != 0.0D) {
-                System.out.println(e.getString("Path") + textSize);
+                System.out.println(e.getString("Path") +": "+ textSize);
                 textList.add(convert2Text(e));
             }
         }

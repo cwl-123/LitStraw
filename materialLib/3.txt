@@ -1,0 +1,91 @@
+Deciphering the Diversities of Astroviruses and Noroviruses in Wastewater Treatment Plant Effluents by a High-Throughput Sequencing Method
+==Abstract==
+Although clinical epidemiology lists human enteric viruses to be among the primary causes of acute gastroenteritis in the human population, their circulation in the environment remains poorly investigated
+These viruses are excreted by the human population into sewers and may be released into rivers through the effluents of wastewater treatment plants 2)
+HAstVs and NoVs are nonenveloped viruses and have a positive-sense single-stranded RNA
+The genome of HAstV is composed of three open reading frames
+The genome of NoV is also composed of three ORFs, and genotyping based on the genetic similarity of ORF2 and ORF3 allows discrimination of 9 genotypes of NoV genogroup I 5)
+A large quantity of viral particles is excreted in the feces of infected people 7), and they are finally circulated through the wastewater network 9)
+Viruses are generally not eliminated by wastewater treatment plants –
+In order to estimate this relationship, seasonal monitoring of the concentration and diversity of HAstV, NoV GI, and NoV GII strains in WWTP effluents from the Paris, France, urban area was performed over 1 year
+The viral diversity was assessed by a high-throughput sequencing approach specifically targeting HAstV, NoV GI, and NoV GII
+During the same period, the HAstV and NoV genotypes present in fecal clinical samples collected from locations throughout France were determined by the French National Reference Centre for Enteric Viruses
+The two data sets were analyzed in order to expand the evaluation of the diversity of the viruses circulating in the sick and healthy virus-infected human population through the evaluation of domestic wastewater
+The main goal of this study was to highlight the applicability of monitoring enteric viruses in WWTP effluents by a next-generation sequencing (NGS) strategy in order to appreciate the diversity of viruses circulating in rivers as well as to evaluate it in a consistent human population linked to a sewerage network
+==MainBody==
+Caption: MATERIALS AND METHODS 
+Sampling campaign
+From May 2013 to May 2014, 4 major WWTPs in the Paris, France, area were sampled in order to determine the concentration and the diversity of HAstV, NoV GI, and NoV II in their effluents
+Samples of 10 liters were collected twice a month, and a total of 100 samples were collected: 24 samples in spring, 28 samples in summer, 24 samples in autumn, and 24 samples in winter
+Each sample was stored at 4°C for 24 h at the most before concentration of the viral particles
+These samples were collected from the WWTPs Seine-Amont
+During the same period, 1,395 stool samples were collected from 669 sporadic cases of gastroenteritis and 726 samples were collected from 230 outbreaks of gastroenteritis by the National Reference Centre for Enteric Viruses in Dijon, France, as part of its routine national monitoring
+Concentration of virus from wastewater samples
+Effluent samples were concentrated by three successive filtration/concentration steps as described previously
+Briefly, 10 liters of sample was filtered using electropositive filters
+Each amplification run included a no-template control and a positive amplification control based on the plasmid used to prepare the standard curves
+Results reported for each sample are means for duplicate samples
+The raw amplification data were collected with ViiA 7 software
+A global control consisting of an adenovirus type 5 LacZ E1 E3 strain produced by transfection of the pAD/CMV/V5-GW/LacZ vector, NoV GI, and NoV GII were used to detect the viruses by one-step RT-qPCR with the TaqMan fast virus 1-step master mix 18)
+Primers MON270 and MON269 were used for the genotyping of HAstV, and no seminested PCR was performed
+Each sample positive by the RT-qPCR was also positive by the genotyping PCR
+Then, a last PCR step was performed with a forward primer containing the forward primer sequence 21), on a 3130XL DNA genetic analyzer
+Only sequences with lengths of between 200 and 1,000 bp were retained, as were sequences with an overall quality score above 25, less than 3 ambiguous bases, and no mismatch with the primer sequences
+After the selection of high-quality sequences, sequences were clustered into operational taxonomic units
+A minimum of two representative reference sequences for each genotype were used (see Table S1 in the supplemental material)
+All sequence alignments were performed using the ClustalW algorithm
+The aligned sequences were truncated in order to target the same genomic regions from which the sequences obtained by high-throughput sequencing were recovered
+A Fasta file containing all OTUs was used to query the file of reference sequences using the BLAST algorithm in order to determine the OTU genotype
+OTUs were considered unidentified if the identity was below the threshold of 90% and the E value was 0.0001
+A phylogenetic tree was created using the neighbor-joining method with a Kimura two-parameter model in MEGA (version 6) software, and branch support was calculated on the basis of 1,000 bootstrap replicates
+The nucleotide sequences of the reference NoV GII.4 variants were collected from the NCBI database
+Statistical analysis
+Statistical analyses were performed with the quantification data only (n 100), using GraphPad Prism (version 6.01) software (GraphPad, La Jolla, CA)
+Kruskal-Wallis tests with Dunn’s multiple-comparison posttest were performed to highlight the seasonality of the densities of HAstV, NoV GI, and NoV GII in samples of WWTP effluents, and P values of 0.05 were considered significant
+SRA accession number
+All sequences have been deposited in NCBI’s Sequence Read Archive (SRA) under accession number (<http://www.ncbi.nlm.nih.gov/sra/?term=SRP061719>)SRP061719
+Caption: RESULTS 
+Viral loads and prevalence in WWTP effluents
+For each RT-qPCR assay, all no-template controls were negative and all positive amplification controls were positive
+The highest values for the viral loads of HAstV, NoV GI, and NoV GII were detected in winter, with 1.39 106 copies per liter, 2.04 105 copies per liter, and 2.92 105 copies per liter, respectively
+The viral loads of HAstV and NoV GII were significantly higher in winter
+However, only the viral loads of NoV GI measured in winter and spring were significantly higher than those measured in summer and autumn
+Viral diversity from WWTP effluents
+A high-throughput sequencing approach was set up in order to determine genotype variations according to season
+A total of 5,990, 7,469, and 6,299 sequences were generated from the samples that were positive for HAstV, NoV GI, and NoV GII, respectively
+The genotypes identified from WWTP effluent samples are shown in 1
+This change in viral diversity among NoV GII genotypes was primarily linked to an increase in the number of sequences representing 4 specific OTUs which corresponded to GII.4
+All OTUs identified to be NoV GII.4 were NoV GII.4 2012 variants (data not shown), and consequently, the proportion of sequences representing the 4 specific OTUs greatly increased (see Fig
+S1 in the supplemental material)
+Caption: DISCUSSION 
+Currently, epidemiological studies are essentially based on clinical data, although the majority of infections do not require specialized consultation with health care providers
+As a consequence, the prevalence of many circulating enteric viruses is certainly underestimated by these studies
+Thus, for the first time, to our knowledge, this study, which used a high-throughput sequencing technology, provides epidemiological data on human viruses detected in the effluents of WWTPs, 2.9 103 copies per liter for NoV GI and 2.6 103 copies per liter for NoV GII in Japan, between 102 and 103 copies per liter for NoV GI and between 102 and 104 copies per liter for NoV GII in New Zealand, about 105 copies per liter for NoV GI and NoV GII in Norway, about 105 copies per liter for HAstV, NoV GI, and NoV GII in Germany, and about 106 copies per liter for NoV GI and NoV GII in France
+Part of the discrepancy in the detection frequencies could be explained by the differences in the concentration and detection methods and the sample volumes used 11, – 35), China, Japan, and Ireland
+Moreover, as in some other studies 24, –41); however, to our knowledge, this is the first time that HAstV-6 has been detected in WWTP effluents
+In opposition, the predominant genotype from stool samples collected was HAstV-5, following by HAstV-2
+For NoV GI, the most prevalent genotype in WWTP effluents was NoV GI.4, while no NoV GI genotype was clearly prevalent in clinical samples
+NoV GI.4 was also reported to be the main genotype of NoV identified in environmental water samples in Spain, Japan, and South Africa
+This genotype has often been described to be responsible for foodborne outbreaks
+Unlike the other two viruses, the predominant NoV GII genotype in WWTP effluents varied according to the season: NoV GII.4 in spring and winter and NoV GII.3 in autumn
+Up to 14 different genotypes were found in summer, but no genotype was predominant
+In comparison, the majority of stool samples showed NoV GII.4 in all seasons, as in most clinical studies 45)
+These observations could be explained by the low number of HAstV-or NoV GI-positive stool samples but not NoV GII-positive stool samples collected
+They could also reflect, in general, the lower pathogenicity of some circulating strains, which would lead to fewer hospitalizations or medical consultations and to fewer reported cases specifically due to these strains
+Furthermore, all HAstV genotypes from effluent samples except HAstV-6 were also found in the clinical samples; HAstV-6 was rarely found in previous epidemiological studies –50) and environmental studies 51, 54)
+The discrepancy between the environmental data and the clinical data is also in agreement with the lack of a systematic analysis of the prevalence of these viruses in feces and the less severe symptoms which are associated with certain genotypes and which thus do not require medical consultation or hospitalization
+To our knowledge, no previous study has highlighted the differences in the pathogenicity or virulence of the genotypes of HAstV and NoV
+Additional studies will be needed to explain the origin of this discrepancy
+Some genotypes –
+Consequently, it would be interesting to monitor gastroenteritis cases to see if the number of gastroenteritis cases caused by NoV GII.17 strains increases in the years ahead
+Finally, effluent sample analysis could provide deeper information regarding the viral diversity in the population linked to a sewerage network and provide a better comprehension of the viral epidemiology, thereby supplementing the clinical data
+Moreover, WWTP effluents are very often released in rivers that can be used for different purposes, such as shellfish farming and catchment to produce drinking water and to irrigate fruits and vegetables 60, (<>)61)
+This approach would provide a means to identify the circulating viral strains of high or low pathogenicity which could potentially be present in foods
+Caption: ACKNOWLEDGMENTS 
+This work was funded by Eau de Paris (France), and the Ile-de-France region funded a Ph.D.scholarship associated with this work (DIM R2DS)
+We warmly thank the sampling management department of SIAAP (France) for the delivery of all the water samples and the Lariboisiere Hospital (France) for access to its high-throughput sequencing platform
+==floatSection==
+TABLE 1 Seasonal viral loads and prevalence of HAstV, NoV GI, and NoV GII in 100 effluent samples from four WWTPs
+FIG 1 (Left) Genotype diversity of HAstV (n 5,990), NoV GI (n 7,469), and NoV GII (n 6,299) from WWTP effluents according to season between May 2013 and May 2014; (right) genotype diversity of HAstV (n 15), NoV GI (n 38), and NoV GII (n 256) from clinical data collected throughout France according to season between May 2013 and May 2014
+Each bar represents the diversity of one type of virus
+FIG 2 Heat map representing the number of OTUs which were identified to be NoV GII.4 in WWTP effluents for each season

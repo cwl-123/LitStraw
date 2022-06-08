@@ -50,13 +50,13 @@ public class SimplifyUtils {
         }
         EasySection easySection = new EasySection();
         if (section.getOutCaption() != null) {
-            easySection.setOutCaption(section.getOutCaption().getText());
+            easySection.setOutCaption(section.getOutCaption().getTextContent());
         }
         if (section.getCaption() != null) {
-            easySection.setCaption(section.getCaption().getText());
+            easySection.setCaption(section.getCaption().getTextContent());
         }
         if (section.getContent() != null) {
-            easySection.setContent(section.getContent().getText());
+            easySection.setContent(section.getContent().getTextContent());
         }
         return easySection;
     }
