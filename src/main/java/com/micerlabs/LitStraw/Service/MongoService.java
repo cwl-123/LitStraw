@@ -49,6 +49,10 @@ public class MongoService {
         return literatureByTitle.getId();
     }
 
+    public Literature findLiteratureById(String id){
+        return mongodao.findById(id).get();
+    }
+
     /**
      * 查询所有Literature
      */

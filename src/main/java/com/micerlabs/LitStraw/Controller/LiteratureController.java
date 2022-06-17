@@ -6,7 +6,6 @@ import com.micerlabs.LitStraw.Service.LiteratureService;
 import com.micerlabs.LitStraw.Service.MongoService;
 import com.micerlabs.LitStraw.Service.RedisService;
 import com.micerlabs.LitStraw.Utils.FileUtil;
-import com.micerlabs.LitStraw.Utils.RegexUtils;
 import com.micerlabs.LitStraw.Utils.SimplifyUtils;
 import com.micerlabs.LitStraw.VO.Result;
 import org.apache.commons.io.FileUtils;
@@ -38,20 +37,6 @@ public class LiteratureController {
 
     @Value("${config.storePath}")
     private String storePath;
-
-//
-//    /**
-//     * 批处理一批论文
-//     *
-//     * @return
-//     */
-//    @PostMapping("/batchPaper")
-//    @ResponseBody
-//    public Result batchPaper(@RequestParam(value = "path") String path) {
-//        RunTimeRecord runTimeRecord = literatureService.batchPaper(path);
-//        return Result.OK().data(runTimeRecord).build();
-//    }
-
 
     /**
      * 一次处理一篇论文
@@ -130,27 +115,8 @@ public class LiteratureController {
     @ResponseBody
     public Result getJsonResult(@RequestParam(value = "taskId") String taskId) {
         List<EasyLiterature> easyLiteratures = new ArrayList<>();
-        String pdfLibPath = storePath + "/" + taskId + "/pdf";
-        List<String> fileNames = FileUtil.getFile(pdfLibPath);
-        Collections.sort(fileNames);
-        for (String fileName : fileNames) {
-            Literature literature = mongoService.findLiteratureByTitle(RegexUtils.getPdfName(fileName));
-            easyLiteratures.add(SimplifyUtils.simplifyLiterature(literature));
-        }
+        easyLiteratures.add(SimplifyUtils.simplifyLiterature(mongoService.findLiteratureById(taskId)));
         return Result.OK().data(easyLiteratures).build();
     }
-
-
-//    /**
-//     * Test
-//     *
-//     * @return
-//     */
-//    @PostMapping("/test")
-//    @ResponseBody
-//    public Result test(@RequestParam(value = "file") String file) {
-//        return Result.OK().data(file).build();
-//    }
-
 
 }
