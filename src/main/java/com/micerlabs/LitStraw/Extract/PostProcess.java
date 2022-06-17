@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PostProcess {
@@ -59,21 +58,10 @@ public class PostProcess {
             return Collections.emptyList();
         }
         List<TextPattern> filteredPattern = new ArrayList<>();
-        TextPatternTypeEnum lastPatternType = TextPatternTypeEnum.UNKNOWN;
         for (int i = 0; i < patternList.size(); i++) {
             TextPattern textPattern = patternList.get(i);
             if (shouldRetainPattern(textPattern)) {
-                TextPatternTypeEnum patternType = textPattern.getPatternType();
-                // 合并同类项。patternType==MainBody的合并，Caption不合并
-                if (patternType.equals(TextPatternTypeEnum.MAIN_BODY) && lastPatternType.equals(patternType)) {
-                    TextPattern filteredPatternEnd = filteredPattern.get(filteredPattern.size() - 1);
-                    filteredPatternEnd.setText(filteredPatternEnd.getText() + textPattern.getText());
-                } else {
-                    lastPatternType = patternType;
-                    filteredPattern.add(textPattern);
-                }
-            } else {
-                context.getFilteredPatternIndex().add(i);
+                filteredPattern.add(textPattern);
             }
         }
         return filteredPattern;
@@ -399,6 +387,7 @@ public class PostProcess {
 
     /**
      * Caption内容追加写入txt
+     *
      * @param outputLocation
      * @param literature
      */
@@ -421,6 +410,7 @@ public class PostProcess {
 
     /**
      * 所有内容追加写入txt
+     *
      * @param outputLocation
      * @param literature
      */
@@ -449,12 +439,9 @@ public class PostProcess {
     public static List<String> textProcessor(String text) {
         // 1.过滤掉引用  规则:若数字被()|[]括起来，则剔除掉
         String deletePattern = "\\([^)]*\\d+[^)]*\\)|\\[[^]]*\\d+[^]]*\\]";
-        Matcher matcher = Pattern.compile(deletePattern).matcher(text);
         List<String> brackets = RegexUtils.matchAllRegex(text, deletePattern);
         for (String bracket : brackets) {
-            if (bracket.length() > 10) {
-                text = text.replace(bracket, "");
-            }
+            text = text.replace(bracket, "");
         }
 
         // 2."  "->" "; " )"替换成")"

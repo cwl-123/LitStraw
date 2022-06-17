@@ -26,45 +26,6 @@ public class LiteratureService {
     @Resource
     private RedisService redisService;
 
-    // trick逻辑
-    @Value("${config.wordFileSuffix}")
-    private String wordFileSuffix;
-
-    @Value("${config.storePath}")
-    private String storePath;
-
-//    /**
-//     * 批处理一批论文
-//     */
-//    public RunTimeRecord batchPaper(String path) {
-//        String pdfLib = path + "/";
-//        String wordLib = pdfLib.replaceAll("pdf", "doc") + wordFileSuffix;
-//        String txtLib = pdfLib.replaceAll("pdf", "txt");
-//        return batchPaper(pdfLib, wordLib, txtLib);
-//    }
-//
-//    public RunTimeRecord batchPaper(String pdfLib, String wordLib, String txtLib) {
-//        RunTimeRecord runTimeRecord = new RunTimeRecord();
-//        long start = System.currentTimeMillis();
-//
-//        // 先处理 word-AllTo-doc
-//        String wordPath = wordLib.substring(0, wordLib.length() - 1);
-////        System.out.println(wordPath);
-//        FileUtils.modifySuffixName(wordPath, "-converted.docx", ".doc");
-//        FileUtils.modifySuffixName(wordPath, ".docx", ".doc");
-//
-//        String pdfPath = pdfLib.substring(0, pdfLib.length() - 1);
-//        List<String> filenames = FileUtils.getFile(new File(pdfPath).getAbsolutePath());
-////        List<String> filenames = FileUtils.getFile(pdfPath);
-//        for (String pdfFilename : filenames) {
-//            singlePaper(pdfLib, wordLib, pdfFilename, txtLib);
-//        }
-//
-//        runTimeRecord.setFileNum(filenames.size());
-//        runTimeRecord.setCostTime(System.currentTimeMillis() - start);
-//        return runTimeRecord;
-//    }
-
 
     /**
      * 一次处理一篇论文
@@ -107,7 +68,7 @@ public class LiteratureService {
         // 3. LabeledText转TextPattern
         List<TextPattern> textPatternList = Extract.label2pattern(textLabelList, context);
 
-        // 以TextPatternType聚类，看看各Pattern都包含怎样的信息
+        // 以TextPatternType聚类，看看各Pattern都包含怎样的信息,调试时使用
         Map<TextPatternTypeEnum, List<TextPattern>> patternTypeEnumListMap = PostProcess.separatePattern(textPatternList);
 
         // 4. 主要过滤掉Other类别的Pattern
@@ -185,6 +146,7 @@ public class LiteratureService {
     /**
      * 论文批处理 格式
      * 次级文件夹
+     *
      * @param storeLib 主文件夹
      * @return
      */
