@@ -126,6 +126,7 @@ public class LiteratureService {
         PostProcess.literature2Txt(literature, context.getTxtLib(), context.getImportFileName() + ".txt");
         if (!literature.getTitle().isEmpty()) {
             try {
+                literature.setId(task.getTaskId());
                 mongoService.saveLiterature(literature);
             } catch (Exception e) {
                 e.printStackTrace();
