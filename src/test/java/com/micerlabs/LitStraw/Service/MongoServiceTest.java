@@ -66,12 +66,14 @@ public class MongoServiceTest {
         System.out.println(literatureBySample);
     }
 
-
+    /**
+     * 执行批处理任务
+     */
     @Test
     public void process() {
-        List<Literature> allLiterature = literatureService.multiPaperWithoutRecord("materialLib/4");
+        List<Literature> allLiterature = literatureService.multiPaperWithoutRecord("materialLib/PSO/6");
         for (Literature literature : allLiterature) {
-            PostProcess.literature2Txt(literature,"materialLib/4/txt",  literature.getTitle() + ".txt");
+            PostProcess.literature2Txt(literature,"materialLib/PSO/6/txt",  literature.getTitle() + ".txt");
         }
     }
 
