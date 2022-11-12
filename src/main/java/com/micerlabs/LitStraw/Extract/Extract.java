@@ -1,6 +1,5 @@
 package com.micerlabs.LitStraw.Extract;
 
-import com.micerlabs.LitStraw.Config.Config;
 import com.micerlabs.LitStraw.Domain.*;
 import com.micerlabs.LitStraw.Utils.MatchUtils;
 import com.micerlabs.LitStraw.Utils.RegexUtils;

@@ -22,6 +22,7 @@ public class JsonAnalysis {
 
     public static void main(String[] args) throws IOException {
         test1();
+        // test();
     }
 
     public static void test1() throws IOException, JSONException {

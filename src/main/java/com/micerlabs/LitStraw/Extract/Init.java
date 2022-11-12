@@ -1,11 +1,8 @@
 package com.micerlabs.LitStraw.Extract;
 
 import com.micerlabs.LitStraw.Domain.*;
-import com.micerlabs.LitStraw.Utils.MatchUtils;
 import com.micerlabs.LitStraw.Utils.RegexUtils;
 import com.micerlabs.LitStraw.Utils.StatisticsUtils;
-import com.spire.doc.Document;
-import org.apache.commons.math3.util.Pair;
 
 import java.io.File;
 import java.util.*;
