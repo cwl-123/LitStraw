@@ -39,23 +39,29 @@
     <dependencies>
 
         <!--Spire操作word-->
+        <!-- https://mvnrepository.com/artifact/e-iceblue/spire.doc.free -->
         <dependency>
             <groupId>e-iceblue</groupId>
             <artifactId>spire.doc.free</artifactId>
-            <version>3.9.0</version>
+            <version>5.2.0</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/e-iceblue/spire.pdf.free -->
         <dependency>
             <groupId>e-iceblue</groupId>
             <artifactId>spire.pdf.free</artifactId>
-            <version>3.9.0</version>
+            <version>5.1.0</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/e-iceblue/spire.pdf -->
         <dependency>
             <groupId>e-iceblue</groupId>
             <artifactId>spire.pdf</artifactId>
-            <version>3.9.6</version>
+            <version>9.1.4</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>
